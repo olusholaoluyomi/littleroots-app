@@ -128,7 +128,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .p-cover > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; filter: blur(6px); transform: scale(1.08); }
 .p-cover.gone { opacity: 0; pointer-events: none; }
 .p-cover-txt { position: relative; display: grid; justify-items: center; gap: .7rem; text-align: center; padding: 1rem; }
-.p-cover-txt .logo-anim { width: min(12rem, 45vw); margin-bottom: .4rem; }
+.p-cover-txt .sting { width: min(14rem, 50vw); font-size: min(1rem, 3.6vw); margin-bottom: .6rem; }
 .p-cover-txt h3 { font-size: clamp(1.8rem, 4.5vw, 4rem); font-weight: 900; max-width: 40rem; }
 /* animated logo: letters pop in, sprout grows, then a gentle wave while loading */
 .logo-anim { display: block; overflow: visible; }
@@ -140,7 +140,29 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes lr-grow { 0% { opacity: 0; transform: scale(.2, 0); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
 @keyframes lr-sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg) scale(1.04); } }
 .splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--forest); transition: opacity .6s ease, visibility .6s; }
-.splash .logo-anim { width: min(16rem, 55vw); }
+.splash .sting { width: min(18rem, 62vw); font-size: min(1.3rem, 4.4vw); }
+
+/* ---- Logo sting: seed drops, bursts, sprout grows, letters spring in, happy hop ---- */
+.sting { position: relative; display: block; }
+.sting .logo-anim { position: relative; z-index: 1; animation: lr-hop .7s ease-out 2.05s both, lr-glow 1.4s ease-in-out 2.1s both; }
+.sting .logo-anim path { opacity: 0; animation-name: lr-spring, lr-wave; animation-duration: .75s, 2.4s; animation-timing-function: cubic-bezier(.25, 1.3, .4, 1), ease-in-out; animation-iteration-count: 1, infinite; animation-fill-mode: both, none; animation-delay: calc(.9s + var(--i) * 90ms), calc(3.3s + var(--i) * 85ms); }
+.sting .logo-anim .rt { animation-name: lr-drop, lr-wave; }
+.sting .logo-anim .st1 { transform-origin: 50% 80%; animation: lr-sprout .9s cubic-bezier(.3, 1.4, .5, 1) .55s both, lr-sway 2.4s ease-in-out 3.3s infinite; }
+@keyframes lr-spring { 0% { opacity: 0; transform: translateY(70%) scale(.4, .2); } 35% { opacity: 1; transform: translateY(-24%) scale(.85, 1.25); } 60% { transform: translateY(6%) scale(1.15, .85); } 80% { transform: translateY(-4%) scale(.97, 1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes lr-drop { 0% { opacity: 0; transform: translateY(-170%) scale(.9, 1.2); } 45% { opacity: 1; transform: translateY(0) scale(1.25, .7); } 65% { transform: translateY(-20%) scale(.92, 1.1); } 82% { transform: translateY(0) scale(1.06, .94); } 100% { opacity: 1; transform: none; } }
+@keyframes lr-sprout { 0% { opacity: 0; transform: scale(.1, 0) rotate(-20deg); } 50% { opacity: 1; transform: scale(1.1, 1.2) rotate(9deg); } 75% { transform: scale(.95) rotate(-4deg); } 100% { opacity: 1; transform: none; } }
+@keyframes lr-hop { 0%, 100% { transform: none; } 40% { transform: translateY(-6%) scale(1.06); } 70% { transform: translateY(1%) scale(.99); } }
+@keyframes lr-glow { 0%, 100% { filter: none; } 50% { filter: drop-shadow(0 0 .7em rgba(231, 194, 127, .8)); } }
+.sting .seed { position: absolute; z-index: 2; left: 35.5%; top: 47%; width: .9em; height: .9em; margin: -.45em 0 0 -.45em; border-radius: 50% 50% 46% 46%; background: radial-gradient(circle at 35% 30%, #F6D9A0, var(--gold) 60%); animation: seed-fall .5s cubic-bezier(.55, 0, 1, .45) both, seed-land .3s ease-out .5s both; }
+@keyframes seed-fall { 0% { transform: translateY(-14em); } 100% { transform: none; } }
+@keyframes seed-land { 0% { transform: scale(1.6, .55); } 55% { opacity: 1; transform: scale(.85, 1.15); } 100% { opacity: 0; transform: scale(0); } }
+.sting .burst { position: absolute; z-index: 2; left: 35.5%; top: 47%; }
+.sting .burst i { position: absolute; left: 0; top: 0; width: .42em; height: .42em; margin: -.21em; border-radius: 50%; background: var(--gold-soft); opacity: 0; animation: lr-spark .9s cubic-bezier(.15, .85, .3, 1) .55s both; }
+.sting .burst i:nth-child(3n) { background: var(--parchment); width: .3em; height: .3em; }
+@keyframes lr-spark { 0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scale(1.2); } 100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--r)) scale(.2); } }
+.sting .tw { position: absolute; z-index: 2; width: .55em; height: .55em; background: var(--gold-soft); transform: rotate(45deg) scale(0); border-radius: 2px; box-shadow: 0 0 .5em rgba(231, 194, 127, .9); animation: lr-twinkle 1.8s ease-in-out infinite; }
+@keyframes lr-twinkle { 0%, 100% { transform: rotate(45deg) scale(0); opacity: 0; } 50% { transform: rotate(45deg) scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sting .seed, .sting .burst, .sting .tw { display: none; } .sting .logo-anim, .sting .logo-anim path, .sting .logo-anim .st1 { animation: lr-fade .5s both; } }
 .splash.done { opacity: 0; visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .logo-anim path, .logo-anim .st1 { animation: lr-fade .4s both; } @keyframes lr-fade { from { opacity: 0; } } }
 .p-spin { width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 4px solid rgba(243,235,216,.2); border-top-color: var(--gold); animation: spin 1s linear infinite; }
@@ -398,11 +420,73 @@ const NAV = [
 
 /* ---------- small helpers ---------- */
 const LOGO_ORDER = { 2: 0, 1: 1, 9: 2, 8: 3, 3: 4, 10: 5, 0: 6, 5: 7, 6: 8, 4: 9, 7: 10 }; // path index -> reading order
-function animLogo() {
+function animLogo(intro) {
   const svg = document.querySelector(".top .logo").cloneNode(true);
   svg.setAttribute("class", "logo-anim"); svg.setAttribute("aria-hidden", "true"); svg.removeAttribute("role");
-  [...svg.querySelectorAll("path")].forEach((p, i) => p.style.setProperty("--i", LOGO_ORDER[i] ?? i));
-  return svg.outerHTML;
+  [...svg.querySelectorAll("path")].forEach((p, i) => {
+    const order = i in LOGO_ORDER ? LOGO_ORDER[i] : i;
+    p.style.setProperty("--i", order);
+    if (order >= 6) p.classList.add("rt"); // "Roots" letters drop in from above
+  });
+  if (!intro) return svg.outerHTML;
+  const sparks = Array.from({ length: 12 }, (_, k) => `<i style="--a:${k * 30 + (k % 2) * 12}deg;--r:${2.6 + (k % 3) * 1.3}em"></i>`).join("");
+  const stars = [[8, 12, 2.4], [88, 6, 2.9], [96, 58, 3.4], [4, 70, 3.8]].map(([x, y, d]) => `<span class="tw" style="left:${x}%;top:${y}%;animation-delay:${d}s"></span>`).join("");
+  return `<div class="sting" aria-hidden="true"><span class="seed"></span><span class="burst">${sparks}</span>${svg.outerHTML}${stars}</div>`;
+}
+
+/* ---- Sonic logo: synthesised live (no audio files). Kalimba-style plucks in D major pentatonic. ---- */
+let audio = null;
+function audioCtx() {
+  if (audio) return audio;
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+  try { audio = new AC(); } catch (e) { return null; }
+  return audio;
+}
+function unlockAudio() { const ac = audioCtx(); if (ac && ac.state === "suspended") ac.resume(); }
+["keydown", "pointerdown", "touchstart"].forEach(ev => addEventListener(ev, unlockAudio, { passive: true }));
+function playSting() {
+  if (settings.sound === false) return;
+  const ac = audioCtx(); if (!ac) return;
+  if (ac.state === "suspended") ac.resume();
+  const t0 = ac.currentTime + 0.06;
+  const out = ac.createDynamicsCompressor(); out.connect(ac.destination);
+  const master = ac.createGain(); master.gain.value = 0.55; master.connect(out);
+  // small room reverb from decaying noise
+  const verb = ac.createConvolver(), len = ac.sampleRate * 1.8, ir = ac.createBuffer(2, len, ac.sampleRate);
+  for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let n = 0; n < len; n++) d[n] = (Math.random() * 2 - 1) * Math.pow(1 - n / len, 3); }
+  verb.buffer = ir; const wet = ac.createGain(); wet.gain.value = 0.28; verb.connect(wet); wet.connect(master);
+  const send = node => { node.connect(master); node.connect(verb); };
+  const hz = m => 440 * Math.pow(2, (m - 69) / 12);
+  function pluck(midi, t, vel, len = 1.3) {
+    const f = hz(midi), g = ac.createGain(); send(g);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[1, "sine", 1], [2, "sine", .28], [5.4, "triangle", .06]].forEach(([mul, type, amp]) => {
+      const o = ac.createOscillator(), og = ac.createGain(); o.type = type; o.frequency.value = f * mul;
+      og.gain.setValueAtTime(amp, t); if (mul > 2) og.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+      o.connect(og); og.connect(g); o.start(t); o.stop(t + len + 0.05);
+    });
+  }
+  function glide(f1, f2, t, dur, vel, type = "sine") {
+    const o = ac.createOscillator(), g = ac.createGain(); o.type = type; send(g); o.connect(g);
+    o.frequency.setValueAtTime(f1, t); o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + dur * 0.25); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  // 1. seed falls (whistle) and lands (soft plunk)
+  glide(1400, 420, t0, 0.48, 0.05);
+  glide(190, 60, t0 + 0.5, 0.28, 0.5);
+  // 2. sparkle burst
+  [93, 98, 100, 102, 105, 107].forEach((m, k) => pluck(m, t0 + 0.55 + k * 0.035 + Math.random() * 0.02, 0.07, 0.5));
+  // 3. sprout grows: rising bloop
+  glide(260, 880, t0 + 0.58, 0.55, 0.12, "triangle");
+  // 4. "Little" climbs, "Roots" bounces down (timed to the letters)
+  [74, 76, 78, 81, 83].forEach((m, k) => pluck(m, t0 + 0.92 + [0, 2, 3, 4, 5][k] * 0.09, 0.3));
+  [86, 83, 81, 78, 76].forEach((m, k) => pluck(m, t0 + 1.47 + k * 0.09, 0.26));
+  // 5. signature: warm chord + bell on the hop
+  [62, 66, 69, 74].forEach((m, k) => pluck(m, t0 + 2.08 + k * 0.025, 0.2, 2.6));
+  [50, 57].forEach(m => { const o = ac.createOscillator(), g = ac.createGain(), lp = ac.createBiquadFilter(); o.type = "sawtooth"; o.frequency.value = hz(m); lp.type = "lowpass"; lp.frequency.value = 900; o.connect(lp); lp.connect(g); send(g); g.gain.setValueAtTime(0.0001, t0 + 2.05); g.gain.exponentialRampToValueAtTime(0.06, t0 + 2.3); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.9); o.start(t0 + 2.05); o.stop(t0 + 4); });
+  pluck(98, t0 + 2.12, 0.16, 2.4);
+  pluck(105, t0 + 2.3, 0.07, 1.8);
 }
 const $ = s => document.querySelector(s);
 const bySlug = s => CATALOG.find(v => v.slug === s);
@@ -689,9 +773,10 @@ function playYouTube(v, el) {
       </div>
     </div>
     <div class="p-cover"><img src="${ytThumb(v.yt, true)}" alt="" onerror="this.onerror=null;this.src='${ytThumb(v.yt)}'">
-      <div class="p-cover-txt">${animLogo()}<span class="eyebrow">LittleRoots presents</span><h3>${esc(v.title)}</h3><span class="hint p-msg"></span></div></div>`;
+      <div class="p-cover-txt">${animLogo(true)}<span class="eyebrow">LittleRoots presents</span><h3>${esc(v.title)}</h3><span class="hint p-msg"></span></div></div>`;
   el.hidden = false;
-  const me = P = { slug: v.slug, yt: true, t: start, total: tot, paused: false, started: false, ytp: null, idle: null, end: null };
+  const me = P = { slug: v.slug, yt: true, t: start, start, total: tot, paused: false, started: false, ytp: null, idle: null, end: null, stingEnd: Date.now() + (settings.sound === false ? 1200 : 3400) };
+  playSting();
   P.tick = setInterval(() => {
     if (!P || !P.ytp || !P.ytp.getCurrentTime) return;
     P.t = P.ytp.getCurrentTime() || P.t; P.total = P.ytp.getDuration() || P.total;
@@ -710,7 +795,7 @@ function playYouTube(v, el) {
       videoId: v.yt, host: "https://www.youtube-nocookie.com", width: "100%", height: "100%",
       playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3, modestbranding: 1, playsinline: 1, cc_load_policy: 0, start: Math.floor(start), origin: location.origin },
       events: {
-        onReady: e => { if (P !== me) return; e.target.playVideo(); setTimeout(() => { if (P === me && !P.started) coverMsg("Press OK to play"); }, 3500); },
+        onReady: e => { if (P !== me) return; e.target.mute(); e.target.playVideo(); setTimeout(() => { if (P === me && !P.started) coverMsg("Press OK to play"); }, 3500); },
         onStateChange: e => P === me && ytState(e.data),
         onError: () => P === me && coverMsg("This story isn't available right now. Try another one."),
       },
@@ -723,7 +808,15 @@ function ytState(s) {
   el.classList.toggle("buffering", s === 3);
   if (s === 1) {
     P.paused = false; el.classList.remove("paused");
-    if (!P.started) { P.started = true; setTimeout(() => { const c = el.querySelector(".p-cover"); if (c) c.classList.add("gone"); }, 2200); }
+    if (!P.started) {
+      P.started = true; const me = P;
+      // keep the intro card up until the sting has finished (and YouTube's title has faded), then start from the top with sound
+      setTimeout(() => {
+        if (P !== me) return;
+        try { if (Math.abs(P.ytp.getCurrentTime() - P.start) > 0.5) P.ytp.seekTo(P.start, true); P.ytp.unMute(); } catch (e) {}
+        const c = el.querySelector(".p-cover"); if (c) c.classList.add("gone");
+      }, Math.max(2200, P.stingEnd - Date.now()));
+    }
     wake();
   }
   if (s === 2) { P.paused = true; el.classList.add("paused"); wake(); }
@@ -814,12 +907,21 @@ function openParents() {
     <div class="set"><h3>Daily screen time</h3>
       <div class="chips">${[0, 20, 45, 90].map(m => `<button class="btn fx" data-fg="limit" data-limit="${m}" aria-pressed="${settings.limit === m}">${m ? m + " min" : "No limit"}</button>`).join("")}</div>
       <span class="hint">Watched today: ${mins} min. When the limit is reached, Zara invites your child to take a break.</span></div>
+    <div class="set"><h3>Sound effects</h3>
+      <div class="chips">${[true, false].map(on => `<button class="btn fx" data-fg="sound" data-sound="${on}" aria-pressed="${(settings.sound !== false) === on}">${on ? "On" : "Off"}</button>`).join("")}</div>
+      <span class="hint">The LittleRoots sound that plays with the logo before each story.</span></div>
     <div class="set"><h3>Privacy</h3><span class="hint">LittleRoots shows no ads and collects no personal data from children. Watch progress stays on this TV.</span></div>
     <div class="choices"><button class="btn primary fx" data-fg="g3" data-v="done">Done</button></div></div>`;
   g.querySelectorAll("[data-limit]").forEach(b => b.onclick = () => {
     settings.limit = +b.dataset.limit; store.set("settings", settings);
     g.querySelectorAll("[data-limit]").forEach(x => x.setAttribute("aria-pressed", x === b));
     toast(settings.limit ? `Daily limit set to ${settings.limit} minutes` : "Daily limit turned off");
+  });
+  g.querySelectorAll("[data-sound]").forEach(b => b.onclick = () => {
+    settings.sound = b.dataset.sound === "true"; store.set("settings", settings);
+    g.querySelectorAll("[data-sound]").forEach(x => x.setAttribute("aria-pressed", x === b));
+    if (settings.sound) playSting();
+    toast(settings.sound ? "Sound effects on" : "Sound effects off");
   });
   g.querySelector('[data-v="done"]').onclick = closeLayer;
   focusFirst(g);
@@ -908,9 +1010,10 @@ document.addEventListener("click", e => {
 
 addEventListener("scroll", () => { const t = document.querySelector(".top"); if (t) t.classList.toggle("solid", scrollY > 60); }, { passive: true });
 /* ---------- start ---------- */
-$("#splash").innerHTML = animLogo();
+$("#splash").innerHTML = animLogo(true);
+try { const ac = audioCtx(); if (ac && ac.state === "running") playSting(); } catch (e) {}
 renderStatic(); renderRows();
-setTimeout(() => { $("#splash").classList.add("done"); setTimeout(() => $("#splash").remove(), 700); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 2300);
+setTimeout(() => { $("#splash").classList.add("done"); setTimeout(() => $("#splash").remove(), 700); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 3700);
 setFocus($("#heroPlay"));
 let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { paintAll(document); paint($("#heroArt"), bySlug(HERO).scene, "hero", innerWidth > 760 ? .66 : .5); }, 200); });
 </script>
