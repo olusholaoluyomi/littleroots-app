@@ -67,6 +67,7 @@ css += `
 html, body { margin: 0; }
 @supports not (aspect-ratio: 1 / 1) {
   .thumb { height: 0; padding-top: 56.25%; }
+  .card.short .thumb { padding-top: 177.78%; }
   .world { height: 0; padding-top: 62.5%; }
   .sheet-art { height: 0; padding-top: 38.1%; }
   .verse .thumb { display: block; padding: 56.25% 0 0; }

@@ -41,6 +41,8 @@ h1, h2, h3 { font-family: var(--display); font-variation-settings: "SOFT" 100; m
 
 /* top bar */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; gap: 1.5rem; padding-block: .9rem; background: linear-gradient(rgba(13,50,44,.92), rgba(13,50,44,0)); }
+.top { transition: background .3s; }
+.top.solid { background: var(--forest); box-shadow: 0 6px 24px rgba(0,0,0,.25); }
 body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; left: 0; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--forest); }
 .logo { width: 7.5rem; flex: none; display: block; }
 .logo .st0 { fill: var(--parchment); } .logo .st1 { fill: var(--gold); }
@@ -67,9 +69,10 @@ body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; lef
 .btn svg { width: 1.05em; height: 1.05em; fill: currentColor; }
 
 /* worlds (the Disney-style brand tiles) */
-.worlds { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; padding-block: .6rem 1.4rem; }
+.worlds { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1rem; padding-block: .6rem 1.4rem; }
 .world { position: relative; aspect-ratio: 16 / 10; border-radius: 1rem; overflow: hidden; background: var(--canopy); border: 1px solid rgba(243,235,216,.12); max-width: 100%; }
-.world canvas { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; opacity: .9; }
+.world canvas, .world img { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; opacity: .9; object-fit: cover; }
+.world img { opacity: 1; }
 .world span { position: absolute; top: auto; right: 0; bottom: 0; left: 0; padding: 1.6rem .8rem .7rem; font-family: var(--display); font-weight: 700; font-size: 1.05rem; line-height: 1.1; background: linear-gradient(0deg, rgba(13,50,44,.92), rgba(13,50,44,0)); }
 
 /* rows */
@@ -86,6 +89,8 @@ body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; lef
 .badge { position: absolute; top: .5rem; left: .5rem; padding: .15rem .5rem; border-radius: 99px; font-size: .7rem; font-weight: 800; background: rgba(13,50,44,.85); color: var(--gold-soft); }
 .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(13,50,44,.7); }
 .bar i { display: block; height: 100%; background: var(--gold); }
+.card.short { width: 9.5vw; width: clamp(110px, 9.5vw, 190px); }
+.card.short .thumb { aspect-ratio: 9 / 16; }
 .card b { font-weight: 800; font-size: .98rem; line-height: 1.2; padding-inline: .15rem; }
 .card em { font-style: normal; font-size: .8rem; color: var(--mist); padding-inline: .15rem; margin-top: -.3rem; }
 .verse .thumb { display: grid; place-items: center; padding: 1rem; background: radial-gradient(circle at 30% 20%, var(--moss), var(--canopy)); }
@@ -190,7 +195,7 @@ body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; lef
 .toast { position: fixed; z-index: 70; left: 50%; bottom: 1.5rem; bottom: max(1.5rem, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); padding: .7rem 1.2rem; border-radius: 99px; background: var(--parchment); color: var(--forest); font-weight: 800; }
 
 @media (max-width: 760px) {
-  .worlds { grid-template-columns: repeat(5, minmax(9.5rem, 1fr)); overflow-x: auto; scrollbar-width: none; padding: 10px 6px 14px; margin: -10px -6px 0; }
+  .worlds { grid-template-columns: repeat(6, minmax(9.5rem, 1fr)); overflow-x: auto; scrollbar-width: none; padding: 10px 6px 14px; margin: -10px -6px 0; }
   .hero { min-height: 30rem; }
   .hero::after { background: linear-gradient(0deg, var(--forest) 18%, rgba(13,50,44,.55) 60%, rgba(13,50,44,.2)); }
   .nav .parents { margin-left: 0; }
@@ -202,6 +207,7 @@ body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; lef
 html, body { margin: 0; }
 @supports not (aspect-ratio: 1 / 1) {
   .thumb { height: 0; padding-top: 56.25%; }
+  .card.short .thumb { padding-top: 177.78%; }
   .world { height: 0; padding-top: 62.5%; }
   .sheet-art { height: 0; padding-top: 38.1%; }
   .verse .thumb { display: block; padding: 56.25% 0 0; }
@@ -243,7 +249,7 @@ html, body { margin: 0; }
   <section class="hero" id="hero">
     <canvas id="heroArt" aria-hidden="true"></canvas><img class="hero-img" id="heroImg" alt="" hidden>
     <div class="hero-copy wrap">
-      <span class="eyebrow" id="heroEyebrow">New on LittleRoots</span>
+      <span class="eyebrow" id="heroEyebrow">Featured story</span>
       <h1 id="heroTitle"></h1>
       <div class="meta" id="heroMeta"></div>
       <p id="heroDesc"></p>
@@ -256,7 +262,7 @@ html, body { margin: 0; }
   <section class="wrap" aria-label="LittleRoots worlds"><div class="worlds" id="worlds"></div></section>
   <div id="rows"></div>
   <footer class="foot wrap">
-    <span>Prototype · "New on LittleRoots" plays your real YouTube videos. Other titles and illustrations are samples to replace in <code>CATALOG</code>.</span>
+    <span>LittleRoots · Growing little hearts in God's Word.</span>
     <span>Remote: arrows to move · OK to select · Back to close. Touch and mouse work too.</span>
   </footer>
 </main>
@@ -287,44 +293,124 @@ const DEMO = !CONFIG.VIDEO_BASE_URL;
 
 /* Worlds: the big brand tiles (like Disney / Pixar / Marvel tiles). */
 const WORLDS = [{
-  id: "stories",
-  name: "Bible Adventures",
+  id: "bible",
+  name: "Bible Stories",
+  cover: "RVgRb-fnj4Q",
   scene: {
-    sky: "day",
+    sky: "sea",
     motif: "ark"
   }
 }, {
-  id: "bedtime",
-  name: "Bedtime Bible",
+  id: "stories",
+  name: "Zara's Stories",
+  cover: "sg7R0tbtFaw",
   scene: {
-    sky: "night",
-    motif: "moon"
+    sky: "warm",
+    motif: "heart"
+  }
+}, {
+  id: "dance",
+  name: "Sing & Dance",
+  cover: "y_OYFXLvz-I",
+  scene: {
+    sky: "day",
+    motif: "notes"
   }
 }, {
   id: "worship",
-  name: "Worship & Songs",
+  name: "Worship Songs",
+  cover: "vXwsOPlRqbs",
   scene: {
     sky: "dusk",
     motif: "notes"
   }
 }, {
-  id: "verses",
-  name: "Memory Verses",
+  id: "bedtime",
+  name: "Bedtime",
+  cover: "X5fQmWSYEKw",
   scene: {
-    sky: "warm",
-    motif: "lamp"
+    sky: "night",
+    motif: "moon"
   }
 }, {
-  id: "prayers",
-  name: "Prayers & Affirmations",
+  id: "loved",
+  name: "I Am Loved",
+  cover: "qPCaIEpYAJk",
   scene: {
     sky: "dawn",
     motif: "dove"
   }
 }];
+const WORLD_NAMES = {
+  bible: "Bible Stories",
+  stories: "Zara's Stories",
+  dance: "Sing & Dance",
+  worship: "Worship Songs",
+  loved: "I Am Loved",
+  shorts: "Little Moments"
+};
 
-/* Sample catalog. Replace with your real episodes. */
-const CATALOG = [/* Real LittleRoots videos from YouTube */
+/* Every video from the LittleRoots YouTube channel.
+   slug: page id · yt: YouTube video ID · world: category · ref: Bible passage (only where the video names one)
+   bedtime: also listed in the Bedtime row · short: a YouTube Short (portrait) · parents: made for grown-ups */
+const CATALOG = [/* Bible Stories */
+{
+  slug: "noahs-ark",
+  yt: "RVgRb-fnj4Q",
+  world: "bible",
+  title: "Noah's Ark: The Biggest Boat Story!",
+  ref: "Genesis 6–9",
+  kind: "Bible story",
+  age: "3–8",
+  scene: {
+    sky: "sea",
+    motif: "ark"
+  },
+  desc: "The Bible story of Noah, the enormous boat he built, and the voyage that followed. A story about trusting God, following His instructions and His promises.",
+  talk: ["Why do you think Noah kept building when it wasn't raining yet?", "What promise does the rainbow remind us of?"]
+}, {
+  slug: "in-the-beginning",
+  yt: "lRfYrvIb8uw",
+  world: "bible",
+  title: "In the Beginning: The Most Amazing Story Ever",
+  ref: "Genesis 1–2",
+  kind: "Bible story",
+  age: "3–8",
+  scene: {
+    sky: "day",
+    motif: "sun"
+  },
+  desc: "The creation story for kids: how God made the world and everything in it.",
+  talk: ["What is your favourite thing God made?", "What did God say about everything He made?"]
+}, {
+  slug: "david-and-goliath",
+  yt: "9kQ93_19xXM",
+  world: "bible",
+  title: "Who Is Afraid of the Giant?",
+  ref: "1 Samuel 17",
+  kind: "Bible story",
+  age: "4–10",
+  scene: {
+    sky: "day",
+    motif: "stone"
+  },
+  desc: "David vs. Goliath: a shepherd boy faces a giant, trusting God more than his size.",
+  talk: ["What feels like a giant in your life?", "Where did David's courage come from?"]
+}, {
+  slug: "samuels-hidden-years",
+  yt: "bNlbGN5M4V8",
+  world: "bible",
+  title: "Samuel's Hidden Years",
+  ref: "1 Samuel 1–3",
+  kind: "Bible story",
+  age: "5–10",
+  scene: {
+    sky: "dusk",
+    motif: "lamp"
+  },
+  desc: "What happened before Samuel became a prophet: his years growing up in God's house.",
+  talk: ["How did Samuel learn to hear God's voice?", "What can you do now, while you're growing, to know God?"]
+}, /* Zara's Stories */
 {
   slug: "ade-and-the-jollof-mould",
   yt: "sg7R0tbtFaw",
@@ -333,31 +419,72 @@ const CATALOG = [/* Real LittleRoots videos from YouTube */
   ref: "Romans 12:2",
   kind: "Story",
   age: "4–10",
-  family: true,
   scene: {
     sky: "warm",
     motif: "loaves"
   },
-  desc: "Everyone wants Ade to fit their mould, but God made him on purpose. An animated story about staying true to your faith, inspired by Pastor Ayo Ajani's message Be Not Conformed.",
+  desc: "Everyone wants Ade to fit their mould, but God made him on purpose. Inspired by Pastor Ayo Ajani's message Be Not Conformed.",
   talk: ["What does it mean to be pressed into someone else's mould?", "When is it hard to be different because you love God?"]
 }, {
-  slug: "jesus-is-my-king",
-  yt: "9tcy6v49dGI",
-  world: "worship",
-  title: "Jesus Is My King",
-  kind: "Song",
-  age: "3–8",
-  family: true,
+  slug: "the-kindness-story",
+  yt: "WpVHOUFEuok",
+  world: "stories",
+  title: "The Kindness Story",
+  kind: "Story",
+  age: "4–10",
   scene: {
     sky: "dawn",
-    motif: "notes"
+    motif: "heart"
   },
-  desc: "A catchy, easy-to-learn song about the love and greatness of Jesus. Made for Sunday school, children's church and family worship.",
-  talk: ["What does it mean that Jesus is King?", "Which part of the song do you like singing loudest?"]
+  desc: "A Christian story for kids about kindness, friendship and belonging.",
+  talk: ["How can you help someone feel like they belong?", "Who was kind to you this week?"]
 }, {
-  slug: "come-and-praise-the-lord",
+  slug: "love-is-patient",
+  yt: "Zuk5jSsCq9U",
+  world: "stories",
+  title: "Love Is Patient, Especially with Annoying Siblings",
+  ref: "1 Corinthians 13:4",
+  kind: "Story",
+  age: "4–10",
+  scene: {
+    sky: "warm",
+    motif: "heart"
+  },
+  desc: "Love is patient, even when a brother or sister is getting on your nerves.",
+  talk: ["What helps you stay patient when someone annoys you?", "How can our family show patient love this week?"]
+}, {
+  slug: "lila-learns-to-be-brave",
+  yt: "Dst_FzAVEIw",
+  world: "stories",
+  title: "Lila Learns to Be Brave",
+  kind: "Zara's Reading Corner",
+  age: "3–8",
+  bedtime: true,
+  scene: {
+    sky: "night",
+    motif: "star"
+  },
+  desc: "Zara's Reading Corner: Lila learns to be brave.",
+  talk: ["What makes you feel brave?", "Who can you talk to when you feel scared?"]
+}, {
+  slug: "the-dark-doesnt-have-to-be-scary",
+  yt: "X5fQmWSYEKw",
+  world: "stories",
+  title: "The Dark Doesn't Have to Be Scary!",
+  kind: "Story",
+  age: "3–6",
+  bedtime: true,
+  scene: {
+    sky: "night",
+    motif: "moon"
+  },
+  desc: "A comforting tale for little ones who feel afraid of the dark.",
+  talk: ["What helps you feel safe at night?", "Is God with us in the dark too?"]
+}, /* Sing & Dance */
+{
+  slug: "dance-and-play",
   yt: "NfJ_lq1TOU8",
-  world: "worship",
+  world: "dance",
   title: "Dance & Play! Come and Praise the Lord",
   kind: "Song",
   age: "3–8",
@@ -365,8 +492,89 @@ const CATALOG = [/* Real LittleRoots videos from YouTube */
     sky: "day",
     motif: "notes"
   },
-  desc: "Get up and move! An action song for praising God with your whole body.",
-  talk: ["What's your favourite dance move for praising God?", "Who can you teach this song to?"]
+  desc: "Get up and move! A song for praising God with your whole body.",
+  talk: ["What's your favourite dance move for praising God?"]
+}, {
+  slug: "el-roi-sees-me",
+  yt: "nm2KD5Ys5mU",
+  world: "dance",
+  title: "El Roi Sees Me!",
+  ref: "Genesis 16:13",
+  kind: "Song",
+  age: "3–8",
+  scene: {
+    sky: "dawn",
+    motif: "sun"
+  },
+  desc: "A dance song about El Roi, the God who sees: He knows each child by name and watches over them, even in dark, crowded or tearful moments.",
+  talk: ["What does it mean that God sees you?", "When do you need to remember that God sees you?"]
+}, {
+  slug: "god-made-me",
+  yt: "-JznpDyj9gY",
+  world: "dance",
+  title: "God Made Me!",
+  ref: "Psalm 139:14",
+  kind: "Song",
+  age: "3–6",
+  scene: {
+    sky: "day",
+    motif: "heart"
+  },
+  desc: "A fun song for kids about ten fingers and ten toes, all made by God.",
+  talk: ["Can you count your fingers and toes?", "What else did God give you?"]
+}, {
+  slug: "god-made-the-animals",
+  yt: "YZftkMlhHSY",
+  world: "dance",
+  title: "God Made the Animals",
+  kind: "Song",
+  age: "3–6",
+  scene: {
+    sky: "day",
+    motif: "lamb"
+  },
+  desc: "A fun kids' worship song about all the animals God made.",
+  talk: ["What's your favourite animal?", "Why do you think God made so many animals?"]
+}, {
+  slug: "joyful-african-dance-party",
+  yt: "y_OYFXLvz-I",
+  world: "dance",
+  title: "Joyful African Dance Party",
+  kind: "Sing-along",
+  age: "3–10",
+  scene: {
+    sky: "warm",
+    motif: "notes"
+  },
+  desc: "Kids singing about God's goodness in an animated African sing-along.",
+  talk: ["What good things has God done for our family?"]
+}, {
+  slug: "jambo-yesu",
+  yt: "aN9taQ_oL_A",
+  world: "dance",
+  title: "Learn to Sing Jambo Yesu!",
+  kind: "Song",
+  age: "3–8",
+  scene: {
+    sky: "dawn",
+    motif: "notes"
+  },
+  desc: "An African-inspired praise song with upbeat rhythms and characters who sing and dance to celebrate Jesus.",
+  talk: ["Jambo means hello in Swahili. How would you say hello to Jesus?"]
+}, /* Worship Songs */
+{
+  slug: "jesus-is-my-king",
+  yt: "9tcy6v49dGI",
+  world: "worship",
+  title: "Jesus Is My King",
+  kind: "Song",
+  age: "3–8",
+  scene: {
+    sky: "dawn",
+    motif: "notes"
+  },
+  desc: "A catchy, easy-to-remember song about the love and greatness of Jesus.",
+  talk: ["What does it mean that Jesus is King?"]
 }, {
   slug: "he-will-never-let-you-go",
   yt: "lLJR4f_vgPY",
@@ -374,321 +582,250 @@ const CATALOG = [/* Real LittleRoots videos from YouTube */
   title: "He Will Never Let You Go",
   kind: "Song",
   age: "3–10",
-  family: true,
+  bedtime: true,
   scene: {
     sky: "night",
     motif: "heart"
   },
-  desc: "A sweet, gentle worship song about God's love that holds on to us. Lovely for quiet time or bedtime.",
-  talk: ["How does it feel to know God never lets go of you?", "When could we sing this together?"]
-}, /* Sample titles below: replace with more of your episodes */
-{
-  slug: "noahs-big-boat",
-  world: "stories",
-  title: "Noah's Big Boat",
-  ref: "Genesis 6–9",
-  mins: 8,
-  age: "3–8",
-  family: true,
-  series: "heroes",
-  ep: 1,
-  scene: {
-    sky: "sea",
-    motif: "ark"
-  },
-  desc: "Rain is coming, and God asks Noah to build the biggest boat anyone has ever seen. Zara counts the animals two by two and waits for the rainbow promise.",
-  talk: ["Why do you think Noah kept building when people laughed?", "What promise does the rainbow remind us of?"]
+  desc: "A sweet worship song about God's love that holds on to us.",
+  talk: ["How does it feel to know God never lets go of you?"]
 }, {
-  slug: "daniel-and-the-lions",
-  world: "stories",
-  title: "Daniel and the Lions",
-  ref: "Daniel 6",
-  mins: 7,
-  age: "4–10",
-  family: true,
-  series: "heroes",
-  ep: 2,
+  slug: "how-great-is-our-god",
+  yt: "vXwsOPlRqbs",
+  world: "worship",
+  title: "How Great Is Our God",
+  kind: "Children's worship",
+  age: "3–10",
   scene: {
     sky: "dusk",
-    motif: "lion"
+    motif: "sun"
   },
-  desc: "Daniel keeps praying even when the king's law says stop. A night in the lions' den shows that God is with him.",
-  talk: ["When is it hard to do the right thing?", "Who can you pray for tonight?"]
+  desc: "Children's worship with Little Roots.",
+  talk: ["What makes God great?"]
 }, {
-  slug: "brave-little-david",
-  world: "stories",
-  title: "Brave Little David",
-  ref: "1 Samuel 17",
-  mins: 9,
-  age: "4–10",
-  series: "heroes",
-  ep: 3,
-  scene: {
-    sky: "day",
-    motif: "stone"
-  },
-  desc: "A shepherd boy with five smooth stones faces a giant, trusting God more than his size.",
-  talk: ["What feels like a 'giant' in your life?", "How did David get brave?"]
-}, {
-  slug: "jonah-and-the-big-fish",
-  world: "stories",
-  title: "Jonah and the Big Fish",
-  ref: "Jonah 1–2",
-  mins: 7,
+  slug: "gods-love-song",
+  yt: "Cr7-OorJJ1E",
+  world: "worship",
+  title: "God's Love Song: Patient & Kind",
+  ref: "1 Corinthians 13:4–7",
+  kind: "Song",
   age: "3–8",
-  series: "heroes",
-  ep: 4,
-  scene: {
-    sky: "sea",
-    motif: "whale"
-  },
-  desc: "Jonah tries to run from God's plan and ends up inside a very big fish. God gives him a second chance.",
-  talk: ["Have you ever wanted to run away from a hard job?", "What does a second chance feel like?"]
-}, {
-  slug: "walls-of-jericho",
-  world: "stories",
-  title: "The Walls of Jericho",
-  ref: "Joshua 6",
-  mins: 6,
-  age: "4–10",
   scene: {
     sky: "warm",
-    motif: "wall"
+    motif: "heart"
   },
-  desc: "Seven days of marching, one big shout, and a city wall comes tumbling down.",
-  talk: ["Why did God ask the people to march quietly first?", "Can you remember a time you had to be patient?"]
+  desc: "A love song for kids: love is patient, love is kind.",
+  talk: ["How can you be patient and kind today?"]
 }, {
-  slug: "jesus-feeds-five-thousand",
-  world: "stories",
-  title: "A Lunch That Fed Thousands",
-  ref: "John 6:1–14",
-  mins: 6,
+  slug: "god-made-you-very-good",
+  yt: "c6XGYKubR-K",
+  world: "worship",
+  title: "God Made You and Said Very Good",
+  ref: "Genesis 1:31",
+  kind: "Song",
   age: "3–8",
-  family: true,
   scene: {
     sky: "day",
-    motif: "loaves"
+    motif: "sun"
   },
-  desc: "A boy shares five loaves and two fish, and Jesus turns one small lunch into a feast for a hillside of people.",
-  talk: ["What small thing could you share this week?", "How many baskets were left over?"]
-}, {
-  slug: "the-first-christmas",
-  world: "stories",
-  title: "The Very First Christmas",
-  ref: "Luke 2:1–20",
-  mins: 9,
+  desc: "A kids' worship song about how God made you, and called it very good.",
+  talk: ["What do you think God likes about the way He made you?"]
+}, /* I Am Loved (affirmations) */
+{
+  slug: "god-made-you-on-purpose",
+  yt: "qPCaIEpYAJk",
+  world: "loved",
+  title: "God Made You On Purpose",
+  kind: "Affirmations",
   age: "3–10",
-  family: true,
+  bedtime: true,
+  scene: {
+    sky: "dawn",
+    motif: "dove"
+  },
+  desc: "Powerful affirmations for your little one.",
+  talk: ["Which of these words would you like to say every morning?"]
+}, {
+  slug: "wonderfully-made",
+  yt: "xdf-b0u59uQ",
+  world: "loved",
+  title: "Every Child Is Wonderfully Made",
+  ref: "Psalm 139:14",
+  kind: "Welcome to Little Roots",
+  age: "All ages",
+  scene: {
+    sky: "day",
+    motif: "heart"
+  },
+  desc: "Let's show every child how wonderfully made they are. Welcome to Little Roots.",
+  talk: ["What makes you wonderfully made?"]
+}, {
+  slug: "every-day-is-a-gift",
+  yt: "7IVA5_wdSl0",
+  world: "loved",
+  title: "Every Day Is a Gift",
+  kind: "Video",
+  age: "3–10",
+  scene: {
+    sky: "dawn",
+    motif: "sun"
+  },
+  desc: "Every day is a gift from God.",
+  talk: ["What was the best gift about today?"]
+}, /* Little Moments (YouTube Shorts) */
+{
+  slug: "zaras-prayer-courage-kindness",
+  yt: "pJdMGtPwgSw",
+  world: "shorts",
+  short: true,
+  title: "Zara's Prayer for Courage and Kindness",
+  kind: "Short · Prayer",
+  age: "3–10",
+  scene: {
+    sky: "dawn",
+    motif: "dove"
+  },
+  desc: "Pray with Zara for courage and kindness.",
+  talk: ["Who needs your kindness tomorrow?"]
+}, {
+  slug: "ten-minutes",
+  yt: "ArtoZQ6iBVI",
+  world: "shorts",
+  short: true,
+  parents: true,
+  title: "10 Minutes That Change Everything",
+  kind: "Short · For parents",
+  age: "Parents",
+  scene: {
+    sky: "warm",
+    motif: "lamp"
+  },
+  desc: "Christian parenting: a short devotional moment for families.",
+  talk: ["When could our family share 10 minutes with God each day?"]
+}, {
+  slug: "every-child-needs-this-story",
+  yt: "22SJjbD51pw",
+  world: "shorts",
+  short: true,
+  parents: true,
+  title: "Why Every Child Needs to Know This Bible Story",
+  kind: "Short · For parents",
+  age: "Parents",
+  scene: {
+    sky: "day",
+    motif: "lamp"
+  },
+  desc: "A Bible story every child should know.",
+  talk: ["Which Bible story do you love most?"]
+}, {
+  slug: "samuels-secret",
+  yt: "pPMjXwh5ajE",
+  world: "shorts",
+  short: true,
+  parents: true,
+  title: "Samuel's Secret Your Child Should Know",
+  kind: "Short · For parents",
+  age: "Parents",
+  scene: {
+    sky: "dusk",
+    motif: "lamp"
+  },
+  desc: "Faith-based parenting: what Samuel's story can teach your child.",
+  talk: ["How can we listen for God together?"]
+}, {
+  slug: "overcome-fear-with-faith",
+  yt: "kIcIFAVnrXE",
+  world: "shorts",
+  short: true,
+  parents: true,
+  title: "Help Your Child Overcome Fear with Faith",
+  kind: "Short · For parents",
+  age: "Parents",
   scene: {
     sky: "night",
     motif: "star"
   },
-  desc: "Shepherds, angels and a bright star lead to a baby in a manger. Zara tells the story the way her grandma told it to her.",
-  talk: ["Who in our family tells the Christmas story best?", "Why did the angels bring the news to shepherds?"]
+  desc: "Christian parenting: helping your child face fear with faith.",
+  talk: ["What is your child afraid of, and how can you pray about it together?"]
 }, {
-  slug: "the-lost-little-lamb",
-  world: "bedtime",
-  title: "The Lost Little Lamb",
-  ref: "Luke 15:3–7",
-  mins: 5,
-  age: "3–6",
-  family: true,
-  scene: {
-    sky: "night",
-    motif: "lamb"
-  },
-  desc: "A gentle bedtime story about a shepherd who searches all night for one little lamb, because every one matters.",
-  talk: ["How does the shepherd feel when he finds the lamb?", "Who looks after you when you feel lost?"]
-}, {
-  slug: "god-made-the-stars",
-  world: "bedtime",
-  title: "God Counts the Stars",
-  ref: "Genesis 15:5",
-  mins: 4,
-  age: "3–6",
-  scene: {
-    sky: "night",
-    motif: "moon"
-  },
-  desc: "Abraham looks up at a sky too full of stars to count. A slow, quiet story to end the day.",
-  talk: ["How many stars do you think there are?", "What promise did God make to Abraham?"]
-}, {
-  slug: "goodnight-prayer-with-zara",
-  world: "bedtime",
-  title: "Goodnight Prayer with Zara",
-  ref: "Psalm 4:8",
-  mins: 3,
-  age: "3–8",
-  scene: {
-    sky: "night",
-    motif: "lamp"
-  },
-  desc: "Zara says thank you for the day, prays for family, and settles down to sleep in peace.",
-  talk: ["What are you thankful for today?", "Who would you like to pray for?"]
-}, {
-  slug: "be-kind",
-  world: "verses",
-  title: "Be Kind to One Another",
-  ref: "Ephesians 4:32",
-  mins: 3,
-  age: "3–8",
-  verse: "Be ye kind one to another, tenderhearted, forgiving one another.",
-  scene: {
-    sky: "warm",
-    motif: "heart"
-  },
-  desc: "Learn Ephesians 4:32 with actions and a catchy rhythm.",
-  talk: ["What is one kind thing you can do tomorrow?"]
-}, {
-  slug: "be-strong",
-  world: "verses",
-  title: "Be Strong and Courageous",
-  ref: "Joshua 1:9",
-  mins: 3,
-  age: "4–10",
-  verse: "Be strong and of a good courage; be not afraid.",
-  scene: {
-    sky: "day",
-    motif: "sun"
-  },
-  desc: "A memory verse for brave days, first days of school and big new things.",
-  talk: ["When do you need to be brave?"]
-}, {
-  slug: "lamp-unto-my-feet",
-  world: "verses",
-  title: "A Lamp unto My Feet",
-  ref: "Psalm 119:105",
-  mins: 2,
-  age: "3–8",
-  verse: "Thy word is a lamp unto my feet, and a light unto my path.",
-  scene: {
-    sky: "dusk",
-    motif: "lamp"
-  },
-  desc: "Zara walks a dark path with a little lamp to show how God's Word guides us.",
-  talk: ["How does a lamp help in the dark?"]
-}, {
-  slug: "morning-praise",
-  world: "worship",
-  title: "Morning Praise with Zara",
-  ref: "Psalm 118:24",
-  mins: 4,
-  age: "3–8",
-  family: true,
-  scene: {
-    sky: "dawn",
-    motif: "notes"
-  },
-  desc: "Wake up, stretch and sing. A bright start to the school-run morning.",
-  talk: ["What made you happy this morning?"]
-}, {
-  slug: "creation-song",
-  world: "worship",
-  title: "The Creation Song",
-  ref: "Genesis 1",
-  mins: 5,
-  age: "3–8",
-  scene: {
-    sky: "day",
-    motif: "sun"
-  },
-  desc: "Seven days, seven verses. Sing through everything God made, from light to animals to people.",
-  talk: ["What is your favourite thing God made?"]
-}, {
-  slug: "i-am-loved",
-  world: "prayers",
-  title: "I Am Loved by God",
-  ref: "1 John 4:19",
-  mins: 3,
-  age: "3–10",
+  slug: "most-powerful-words",
+  yt: "fFroItXeoxo",
+  world: "shorts",
+  short: true,
+  parents: true,
+  title: "The Most Powerful Words a Child Can Say",
+  kind: "Short · For parents",
+  age: "Parents",
   scene: {
     sky: "dawn",
     motif: "heart"
   },
-  desc: "Short affirmations for children: I am loved, I am made on purpose, I am never alone.",
-  talk: ["Which one of these is your favourite to say?"]
-}, {
-  slug: "thank-you-for-food",
-  world: "prayers",
-  title: "Thank You for Our Food",
-  ref: "1 Timothy 4:4",
-  mins: 2,
-  age: "3–6",
-  scene: {
-    sky: "warm",
-    motif: "loaves"
-  },
-  desc: "A simple mealtime prayer to learn together at the table.",
-  talk: ["Who helped make our food today?"]
+  desc: "Words that build a child's faith and confidence.",
+  talk: ["Which words do you want your child to say about themselves?"]
 }];
-const SERIES = {
-  heroes: {
-    name: "Heroes of Faith",
-    note: "Season 1 · watch in order"
-  }
-};
+const SERIES = {}; // story series (none yet)
+const HERO = "ade-and-the-jollof-mould";
 
-/* Rows in the order they appear on the home screen. */
+/* Rows on the home screen, in order. */
 const ROWS = [{
   id: "continue",
   name: "Continue watching",
   pick: () => continueList()
 }, {
-  id: "new",
-  name: "New on LittleRoots",
-  note: "From the YouTube channel",
-  pick: () => CATALOG.filter(v => v.yt)
-}, {
-  id: "family",
-  name: "Family Night",
-  note: "Stories for every age at the table",
-  pick: () => CATALOG.filter(v => v.family)
-}, {
-  id: "heroes",
-  name: "Heroes of Faith",
-  note: "Series · Season 1",
-  pick: () => CATALOG.filter(v => v.series === "heroes").sort((a, b) => a.ep - b.ep)
+  id: "bible",
+  name: "Bible Stories",
+  note: "The Bible's big stories, retold for kids",
+  pick: () => CATALOG.filter(v => v.world === "bible")
 }, {
   id: "stories",
-  name: "Bible Adventures",
+  name: "Zara's Stories",
+  note: "Stories that grow character",
   pick: () => CATALOG.filter(v => v.world === "stories")
 }, {
-  id: "bedtime",
-  name: "Bedtime Bible",
-  note: "Calm stories for winding down",
-  pick: () => CATALOG.filter(v => v.world === "bedtime")
-}, {
-  id: "verses",
-  name: "Memory Verses",
-  note: "King James Version",
-  pick: () => CATALOG.filter(v => v.world === "verses"),
-  style: "verse"
+  id: "dance",
+  name: "Sing & Dance",
+  note: "Get up and move",
+  pick: () => CATALOG.filter(v => v.world === "dance")
 }, {
   id: "worship",
-  name: "Worship & Songs",
+  name: "Worship Songs",
   pick: () => CATALOG.filter(v => v.world === "worship")
 }, {
-  id: "prayers",
-  name: "Prayers & Affirmations",
-  pick: () => CATALOG.filter(v => v.world === "prayers")
+  id: "bedtime",
+  name: "Bedtime",
+  note: "Calm picks for winding down",
+  pick: () => CATALOG.filter(v => v.bedtime)
+}, {
+  id: "loved",
+  name: "I Am Loved",
+  note: "Affirmations for little hearts",
+  pick: () => CATALOG.filter(v => v.world === "loved")
+}, {
+  id: "shorts",
+  name: "Little Moments",
+  note: "Shorts · prayers and tips for parents",
+  pick: () => CATALOG.filter(v => v.world === "shorts")
 }];
 const NAV = [{
   label: "Home",
   target: "hero"
 }, {
-  label: "Bible Adventures",
+  label: "Bible Stories",
+  target: "bible"
+}, {
+  label: "Zara's Stories",
   target: "stories"
 }, {
-  label: "Bedtime",
-  target: "bedtime"
-}, {
-  label: "Memory Verses",
-  target: "verses"
+  label: "Sing & Dance",
+  target: "dance"
 }, {
   label: "Worship",
   target: "worship"
 }, {
-  label: "Grown-ups",
+  label: "Bedtime",
+  target: "bedtime"
+}, {
+  label: "Settings",
   target: "parents",
   cls: "parents"
 }];
@@ -742,6 +879,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({
   '"': "&quot;"
 })[c]);
 const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+const ageLabel = v => /^\d/.test(v.age) ? "Ages " + v.age : v.age === "Parents" ? "For parents" : v.age;
 const info = v => [v.ref, v.mins ? v.mins + " min" : v.kind].filter(Boolean);
 function toast(text) {
   const t = $("#toast");
@@ -752,10 +890,11 @@ function toast(text) {
 }
 
 /* Watch progress (seconds per slug). Sample progress shows until real viewing replaces it. */
-let progress = store.get("progress", {
-  "daniel-and-the-lions": 190,
-  "god-made-the-stars": 70
-});
+let progress = store.get("progress", {});
+if (progress["daniel-and-the-lions"] || progress["god-made-the-stars"]) {
+  delete progress["daniel-and-the-lions"];
+  delete progress["god-made-the-stars"];
+} // clear old sample data
 let settings = store.get("settings", {
   limit: 0
 });
@@ -1022,17 +1161,52 @@ function motif(x, m, cx, cy, u, night) {
 function cardHTML(v, rowId, style) {
   const p = progress[v.slug];
   const pct = p && totalOf(v) ? Math.min(100, p / totalOf(v) * 100) : 0;
-  const badge = v.yt && rowId !== "new" ? `<span class="badge new">New</span>` : v.series ? `<span class="badge">Ep ${v.ep}</span>` : v.family && rowId !== "family" ? `<span class="badge">Family</span>` : "";
-  const art = style === "verse" ? `<q>${esc(v.verse)}</q>` : v.yt && EMBED_YOUTUBE ? `<img src="${ytThumb(v.yt)}" alt="" loading="lazy">${badge}` : DEMO || v.yt ? `<canvas data-scene='${JSON.stringify(v.scene)}' data-seed="${v.slug}" aria-hidden="true"></canvas>${badge}` : `<img src="${CONFIG.VIDEO_BASE_URL}/${v.slug}/thumbnail.jpg" alt="" loading="lazy">${badge}`;
-  return `<button class="card fx${style === "verse" ? " verse" : ""}" data-fg="row-${rowId}" data-slug="${v.slug}">
+  const badge = v.parents ? `<span class="badge">For parents</span>` : v.short ? `<span class="badge new">Short</span>` : "";
+  const art = style === "verse" ? `<q>${esc(v.verse)}</q>` : v.yt && EMBED_YOUTUBE ? `<img src="${ytThumb(v.yt)}" alt="" loading="lazy" onerror="thumbFail(this)" onload="thumbLoad(this)">${badge}` : DEMO || v.yt ? `<canvas data-scene='${JSON.stringify(v.scene)}' data-seed="${v.slug}" aria-hidden="true"></canvas>${badge}` : `<img src="${CONFIG.VIDEO_BASE_URL}/${v.slug}/thumbnail.jpg" alt="" loading="lazy">${badge}`;
+  return `<button class="card fx${style === "verse" ? " verse" : ""}${v.short ? " short" : ""}" data-fg="row-${rowId}" data-slug="${v.slug}">
     <span class="thumb">${art}${pct ? `<span class="bar"><i style="width:${pct}%"></i></span>` : ""}</span>
     <b>${esc(style === "verse" ? v.ref : v.title)}</b>
     <em>${style === "verse" ? esc(v.title) : `${esc(info(v).join(" · "))}${rowId === "continue" ? ` · ${Math.max(1, Math.ceil((totalOf(v) - p) / 60))} min left` : ""}`}</em>
   </button>`;
 }
+/* Thumbnails: if one fails, show an illustration instead. If other thumbnails loaded fine,
+   the failed video's link is broken (removed or mistyped), so hide that card everywhere. */
+let thumbOK = 0;
+const thumbBad = new Set();
+function thumbLoad(img) {
+  if (img.naturalWidth <= 120) return thumbFail(img);
+  thumbOK++;
+  settleThumbs();
+}
+function thumbFail(img) {
+  const card = img.closest(".card");
+  if (!card) return;
+  const v = bySlug(card.dataset.slug);
+  thumbBad.add(v.slug);
+  const c = document.createElement("canvas");
+  c.setAttribute("aria-hidden", "true");
+  img.replaceWith(c);
+  paint(c, v.scene, v.slug);
+  settleThumbs();
+}
+let settleT;
+function settleThumbs() {
+  clearTimeout(settleT);
+  settleT = setTimeout(() => {
+    if (thumbOK < 3) return; // network trouble, not broken links: keep the illustrations
+    thumbBad.forEach(slug => {
+      BROKEN[slug] = true;
+      document.querySelectorAll(`.card[data-slug="${slug}"]`).forEach(c => c.remove());
+    });
+    document.querySelectorAll(".row").forEach(r => {
+      if (!r.querySelector(".card")) r.remove();
+    });
+  }, 2500);
+}
+const BROKEN = {};
 function renderRows() {
   $("#rows").innerHTML = ROWS.map(r => {
-    const items = r.pick();
+    const items = r.pick().filter(v => !BROKEN[v.slug]);
     if (!items.length) return "";
     return `<section class="row wrap" id="row-${r.id}" aria-label="${esc(r.name)}">
       <div class="row-head"><h2>${esc(r.name)}</h2>${r.note ? `<small>${esc(r.note)}</small>` : ""}</div>
@@ -1045,12 +1219,12 @@ function paintAll(root) {
 }
 function renderStatic() {
   $("#nav").innerHTML = NAV.map((n, i) => `<button class="fx ${n.cls || ""}" data-fg="nav" data-target="${n.target}" aria-current="${i === 0}">${n.label}</button>`).join("");
-  $("#worlds").innerHTML = WORLDS.map(w => `<button class="world fx" data-fg="worlds" data-target="${w.id}"><canvas data-scene='${JSON.stringify(w.scene)}' data-seed="${w.id}" aria-hidden="true"></canvas><span>${esc(w.name)}</span></button>`).join("");
+  $("#worlds").innerHTML = WORLDS.map(w => `<button class="world fx" data-fg="worlds" data-target="${w.id}"><canvas data-scene='${JSON.stringify(w.scene)}' data-seed="${w.id}" aria-hidden="true"></canvas>${EMBED_YOUTUBE && w.cover ? `<img src="${ytThumb(w.cover)}" alt="" onerror="this.remove()">` : ""}<span>${esc(w.name)}</span></button>`).join("");
   paintAll($("#worlds"));
-  const f = CATALOG[0];
+  const f = bySlug(HERO);
   $("#heroTitle").textContent = f.title;
   $("#heroDesc").textContent = f.desc;
-  $("#heroMeta").innerHTML = `${f.ref ? `<span class="ref">${esc(f.ref)}</span>` : ""}<span>${f.mins ? f.mins + " min" : f.kind}</span><span>Ages ${f.age}</span>${f.series ? `<span>${esc(SERIES[f.series].name)} · Episode ${f.ep}</span>` : ""}${f.family ? "<span>Family Night pick</span>" : ""}`;
+  $("#heroMeta").innerHTML = `${f.ref ? `<span class="ref">${esc(f.ref)}</span>` : ""}<span>${f.mins ? f.mins + " min" : f.kind}</span><span>${esc(ageLabel(f))}</span>${f.series ? `<span>${esc(SERIES[f.series].name)} · Episode ${f.ep}</span>` : ""}${f.family ? "<span>Family Night pick</span>" : ""}`;
   if (f.yt && EMBED_YOUTUBE) {
     const im = $("#heroImg");
     im.onload = () => {
@@ -1075,9 +1249,9 @@ function openDetail(slug) {
   d.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(v.title)}">
     <div class="sheet-art"><canvas aria-hidden="true"></canvas>${v.yt && EMBED_YOUTUBE ? `<img class="hero-img" src="${ytThumb(v.yt)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : ""}</div>
     <div class="sheet-body">
-      ${v.series ? `<span class="eyebrow">${esc(SERIES[v.series].name)} · Episode ${v.ep}</span>` : `<span class="eyebrow">${esc(WORLDS.find(w => w.id === v.world).name)}</span>`}
+      ${v.series ? `<span class="eyebrow">${esc(SERIES[v.series].name)} · Episode ${v.ep}</span>` : `<span class="eyebrow">${esc(WORLD_NAMES[v.world] || "")}</span>`}
       <h2>${esc(v.title)}</h2>
-      <div class="meta">${v.ref ? `<span class="ref">${esc(v.ref)}</span>` : ""}<span>${v.mins ? v.mins + " min" : v.kind}</span><span>Ages ${v.age}</span>${v.family ? "<span>Family Night pick</span>" : ""}</div>
+      <div class="meta">${v.ref ? `<span class="ref">${esc(v.ref)}</span>` : ""}<span>${v.mins ? v.mins + " min" : v.kind}</span><span>${esc(ageLabel(v))}</span>${v.family ? "<span>Family Night pick</span>" : ""}</div>
       <p>${esc(v.desc)}</p>
       <div class="actions">
         ${v.yt && !EMBED_YOUTUBE ? `<a class="btn primary fx" data-fg="d-act" href="${ytLink(v.yt)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>Watch on YouTube</a>` : `<button class="btn primary fx" data-fg="d-act" data-act="play">`}<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>${v.yt && !EMBED_YOUTUBE ? "" : `${resume ? `Resume from ${fmt(progress[slug])}` : "Play"}</button>`}
@@ -1668,7 +1842,12 @@ document.addEventListener("click", e => {
   const first = document.querySelector(`#row-${t.dataset.target} .card`);
   if (first) setFocus(first);
 });
-
+addEventListener("scroll", () => {
+  const t = document.querySelector(".top");
+  if (t) t.classList.toggle("solid", scrollY > 60);
+}, {
+  passive: true
+});
 /* ---------- start ---------- */
 $("#splash").innerHTML = animLogo();
 renderStatic();
@@ -1683,7 +1862,7 @@ addEventListener("resize", () => {
   clearTimeout(rz);
   rz = setTimeout(() => {
     paintAll(document);
-    paint($("#heroArt"), CATALOG[0].scene, "hero", innerWidth > 760 ? .66 : .5);
+    paint($("#heroArt"), bySlug(HERO).scene, "hero", innerWidth > 760 ? .66 : .5);
   }, 200);
 });</script>
 </body>
