@@ -772,6 +772,11 @@ const ROWS = [{
   name: "Continue watching",
   pick: () => continueList()
 }, {
+  id: "shorts",
+  name: "Little Moments",
+  note: "Shorts · prayers and tips for parents",
+  pick: () => CATALOG.filter(v => v.world === "shorts")
+}, {
   id: "bible",
   name: "Bible Stories",
   note: "The Bible's big stories, retold for kids",
@@ -800,11 +805,6 @@ const ROWS = [{
   name: "I Am Loved",
   note: "Affirmations for little hearts",
   pick: () => CATALOG.filter(v => v.world === "loved")
-}, {
-  id: "shorts",
-  name: "Little Moments",
-  note: "Shorts · prayers and tips for parents",
-  pick: () => CATALOG.filter(v => v.world === "shorts")
 }];
 const NAV = [{
   label: "Home",

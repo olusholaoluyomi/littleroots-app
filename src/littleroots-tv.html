@@ -375,13 +375,13 @@ const HERO = "ade-and-the-jollof-mould";
 /* Rows on the home screen, in order. */
 const ROWS = [
   { id: "continue", name: "Continue watching", pick: () => continueList() },
+  { id: "shorts", name: "Little Moments", note: "Shorts · prayers and tips for parents", pick: () => CATALOG.filter(v => v.world === "shorts") },
   { id: "bible", name: "Bible Stories", note: "The Bible's big stories, retold for kids", pick: () => CATALOG.filter(v => v.world === "bible") },
   { id: "stories", name: "Zara's Stories", note: "Stories that grow character", pick: () => CATALOG.filter(v => v.world === "stories") },
   { id: "dance", name: "Sing & Dance", note: "Get up and move", pick: () => CATALOG.filter(v => v.world === "dance") },
   { id: "worship", name: "Worship Songs", pick: () => CATALOG.filter(v => v.world === "worship") },
   { id: "bedtime", name: "Bedtime", note: "Calm picks for winding down", pick: () => CATALOG.filter(v => v.bedtime) },
   { id: "loved", name: "I Am Loved", note: "Affirmations for little hearts", pick: () => CATALOG.filter(v => v.world === "loved") },
-  { id: "shorts", name: "Little Moments", note: "Shorts · prayers and tips for parents", pick: () => CATALOG.filter(v => v.world === "shorts") },
 ];
 
 const NAV = [
