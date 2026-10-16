@@ -123,11 +123,24 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .p-cover > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; filter: blur(6px); transform: scale(1.08); }
 .p-cover.gone { opacity: 0; pointer-events: none; }
 .p-cover-txt { position: relative; display: grid; justify-items: center; gap: .7rem; text-align: center; padding: 1rem; }
-.p-cover-txt .logo { width: 9rem; }
+.p-cover-txt .logo-anim { width: min(12rem, 45vw); margin-bottom: .4rem; }
 .p-cover-txt h3 { font-size: clamp(1.8rem, 4.5vw, 4rem); font-weight: 900; max-width: 40rem; }
+/* animated logo: letters pop in, sprout grows, then a gentle wave while loading */
+.logo-anim { display: block; overflow: visible; }
+.logo-anim .st0 { fill: var(--parchment); } .logo-anim .st1 { fill: var(--gold); }
+.logo-anim path { transform-box: fill-box; transform-origin: 50% 100%; animation: lr-pop .55s cubic-bezier(.3, 1.6, .5, 1) both, lr-wave 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * 70ms), calc(1.1s + var(--i) * 85ms); }
+.logo-anim .st1 { transform-origin: 50% 80%; animation: lr-grow .9s cubic-bezier(.3, 1.5, .5, 1) both, lr-sway 2.4s ease-in-out infinite; animation-delay: .1s, 1.1s; }
+@keyframes lr-pop { from { opacity: 0; transform: translateY(35%) scale(.5); } to { opacity: 1; transform: none; } }
+@keyframes lr-wave { 0%, 55%, 100% { transform: none; } 25% { transform: translateY(-9%); } }
+@keyframes lr-grow { 0% { opacity: 0; transform: scale(.2, 0); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+@keyframes lr-sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg) scale(1.04); } }
+.splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--forest); transition: opacity .6s ease, visibility .6s; }
+.splash .logo-anim { width: min(16rem, 55vw); }
+.splash.done { opacity: 0; visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .logo-anim path, .logo-anim .st1 { animation: lr-fade .4s both; } @keyframes lr-fade { from { opacity: 0; } } }
 .p-spin { width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 4px solid rgba(243,235,216,.2); border-top-color: var(--gold); animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.p-buffer { position: absolute; z-index: 2; left: 50%; top: 50%; margin: -1.3rem 0 0 -1.3rem; display: none; }
+.p-buffer { position: absolute; z-index: 2; left: 50%; top: 50%; width: 7rem; transform: translate(-50%, -50%); display: none; padding: 1rem 1.2rem; border-radius: 1rem; background: rgba(13,50,44,.75); }
 .player.buffering .p-buffer { display: block; }
 .p-end { position: absolute; inset: 0; z-index: 6; display: grid; align-content: center; gap: 1.2rem; padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(90deg, var(--forest) 30%, rgba(13,50,44,.7)), var(--forest); }
 .p-end .next { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 1.5rem; align-items: center; max-width: 60rem; }
@@ -196,6 +209,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <nav class="nav" aria-label="Sections" id="nav"></nav>
 </header>
 
+<div class="splash" id="splash" aria-hidden="true"></div>
 <main id="browse">
   <section class="hero" id="hero">
     <canvas id="heroArt" aria-hidden="true"></canvas><img class="hero-img" id="heroImg" alt="" hidden>
@@ -358,6 +372,13 @@ const NAV = [
 ];
 
 /* ---------- small helpers ---------- */
+const LOGO_ORDER = { 2: 0, 1: 1, 9: 2, 8: 3, 3: 4, 10: 5, 0: 6, 5: 7, 6: 8, 4: 9, 7: 10 }; // path index -> reading order
+function animLogo() {
+  const svg = document.querySelector(".top .logo").cloneNode(true);
+  svg.setAttribute("class", "logo-anim"); svg.setAttribute("aria-hidden", "true"); svg.removeAttribute("role");
+  [...svg.querySelectorAll("path")].forEach((p, i) => p.style.setProperty("--i", LOGO_ORDER[i] ?? i));
+  return svg.outerHTML;
+}
 const $ = s => document.querySelector(s);
 const bySlug = s => CATALOG.find(v => v.slug === s);
 const store = {
@@ -610,7 +631,7 @@ function playYouTube(v, el) {
   el.innerHTML = `
     <div class="yt-frame"><div id="ytp"></div></div>
     <div class="p-shield"></div>
-    <span class="p-spin p-buffer"></span>
+    <div class="p-buffer">${animLogo()}</div>
     <div class="p-pause"><span class="eyebrow">You're watching</span><h3>${esc(v.title)}</h3><p>${esc(v.desc)}</p></div>
     <div class="p-top"><button class="round fx" data-fg="p-top" data-act="close" aria-label="Back to LittleRoots">${ICON.arrow}</button>
       <div><span class="eyebrow">${esc(info(v).join(" · "))}</span><h2>${esc(v.title)}</h2></div></div>
@@ -625,7 +646,7 @@ function playYouTube(v, el) {
       </div>
     </div>
     <div class="p-cover"><img src="${ytThumb(v.yt, true)}" alt="" onerror="this.onerror=null;this.src='${ytThumb(v.yt)}'">
-      <div class="p-cover-txt">${document.querySelector(".logo").outerHTML}<span class="eyebrow">LittleRoots presents</span><h3>${esc(v.title)}</h3><span class="p-spin"></span><span class="hint p-msg"></span></div></div>`;
+      <div class="p-cover-txt">${animLogo()}<span class="eyebrow">LittleRoots presents</span><h3>${esc(v.title)}</h3><span class="hint p-msg"></span></div></div>`;
   el.hidden = false;
   const me = P = { slug: v.slug, yt: true, t: start, total: tot, paused: false, started: false, ytp: null, idle: null, end: null };
   P.tick = setInterval(() => {
@@ -843,7 +864,9 @@ document.addEventListener("click", e => {
 });
 
 /* ---------- start ---------- */
+$("#splash").innerHTML = animLogo();
 renderStatic(); renderRows();
+setTimeout(() => { $("#splash").classList.add("done"); setTimeout(() => $("#splash").remove(), 700); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 2300);
 setFocus($("#heroPlay"));
 let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { paintAll(document); paint($("#heroArt"), CATALOG[0].scene, "hero", innerWidth > 760 ? .66 : .5); }, 200); });
 </script>
