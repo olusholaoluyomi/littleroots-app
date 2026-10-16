@@ -151,30 +151,30 @@ body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; lef
 .splash { align-content: center; justify-items: center; gap: 1.6rem; text-align: center; }
 .splash .tagline { margin: 0; padding-inline: 1.5rem; font-family: var(--display); font-variation-settings: "SOFT" 100; font-weight: 500; font-style: italic; font-size: 2.2vw; font-size: clamp(1.05rem, 2.2vw, 1.9rem); line-height: 1.3; color: var(--parchment); text-wrap: balance; }
 .splash .tagline span { display: inline-block; opacity: 0; animation: tag-in .7s cubic-bezier(.2, .8, .3, 1) both; }
-.splash .tagline span:nth-child(1) { animation-delay: 4.7s; }
-.splash .tagline span:nth-child(2) { animation-delay: 5.2s; }
-.splash .tagline span:nth-child(3) { animation-delay: 5.7s; color: var(--gold-soft); }
+.splash .tagline span:nth-child(1) { animation-delay: 3.5s; }
+.splash .tagline span:nth-child(2) { animation-delay: 3.9s; }
+.splash .tagline span:nth-child(3) { animation-delay: 4.3s; color: var(--gold-soft); }
 @keyframes tag-in { from { opacity: 0; transform: translateY(.6em); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .splash .tagline span { animation: lr-fade .6s both; } }
 
 /* ---- Logo sting: seed drops, bursts, sprout grows, letters spring in, happy hop ---- */
 .sting { position: relative; display: block; }
-.sting .logo-anim { position: relative; z-index: 1; animation: lr-hop 1s ease-out 4.1s both, lr-glow 2s ease-in-out 4.2s both; }
-.sting .logo-anim path { opacity: 0; animation-name: lr-spring, lr-wave; animation-duration: 1s, 2.4s; animation-timing-function: cubic-bezier(.25, 1.3, .4, 1), ease-in-out; animation-iteration-count: 1, infinite; animation-fill-mode: both, none; animation-delay: calc(1.8s + var(--i) * 180ms), calc(6.2s + var(--i) * 85ms); }
-.sting .logo-anim .rt { animation-name: lr-drop, lr-wave; animation-duration: 1.05s, 2.4s; }
-.sting .logo-anim .st1 { transform-origin: 50% 80%; animation: lr-sprout 1.4s cubic-bezier(.3, 1.4, .5, 1) 1.1s both, lr-sway 2.4s ease-in-out 6.2s infinite; }
+.sting .logo-anim { position: relative; z-index: 1; animation: lr-hop .8s ease-out 3.08s both, lr-glow 1.6s ease-in-out 3.15s both; }
+.sting .logo-anim path { opacity: 0; animation-name: lr-spring, lr-wave; animation-duration: .8s, 2.4s; animation-timing-function: cubic-bezier(.25, 1.3, .4, 1), ease-in-out; animation-iteration-count: 1, infinite; animation-fill-mode: both, none; animation-delay: calc(1.35s + var(--i) * 135ms), calc(4.65s + var(--i) * 85ms); }
+.sting .logo-anim .rt { animation-name: lr-drop, lr-wave; animation-duration: .85s, 2.4s; }
+.sting .logo-anim .st1 { transform-origin: 50% 80%; animation: lr-sprout 1.05s cubic-bezier(.3, 1.4, .5, 1) .83s both, lr-sway 2.4s ease-in-out 4.65s infinite; }
 @keyframes lr-spring { 0% { opacity: 0; transform: translateY(70%) scale(.4, .2); } 35% { opacity: 1; transform: translateY(-24%) scale(.85, 1.25); } 60% { transform: translateY(6%) scale(1.15, .85); } 80% { transform: translateY(-4%) scale(.97, 1.04); } 100% { opacity: 1; transform: none; } }
 @keyframes lr-drop { 0% { opacity: 0; transform: translateY(-170%) scale(.9, 1.2); } 45% { opacity: 1; transform: translateY(0) scale(1.25, .7); } 65% { transform: translateY(-20%) scale(.92, 1.1); } 82% { transform: translateY(0) scale(1.06, .94); } 100% { opacity: 1; transform: none; } }
 @keyframes lr-sprout { 0% { opacity: 0; transform: scale(.1, 0) rotate(-20deg); } 30% { opacity: 1; transform: scale(.5, .7) rotate(-6deg); } 55% { transform: scale(1.1, 1.2) rotate(9deg); } 78% { transform: scale(.95) rotate(-4deg); } 100% { opacity: 1; transform: none; } }
 @keyframes lr-hop { 0%, 100% { transform: none; } 40% { transform: translateY(-6%) scale(1.06); } 70% { transform: translateY(1%) scale(.99); } }
 @keyframes lr-glow { 0%, 100% { filter: none; } 50% { filter: drop-shadow(0 0 .7em rgba(231, 194, 127, .8)); } }
-.sting .seed { position: absolute; z-index: 2; left: 35.5%; top: 47%; width: .9em; height: .9em; margin: -.45em 0 0 -.45em; border-radius: 50% 50% 46% 46%; background: radial-gradient(circle at 35% 30%, #F6D9A0, var(--gold) 60%); animation: seed-fall 1s cubic-bezier(.45, 0, 1, .5) both, seed-land .45s ease-out 1s both; }
+.sting .seed { position: absolute; z-index: 2; left: 35.5%; top: 47%; width: .9em; height: .9em; margin: -.45em 0 0 -.45em; border-radius: 50% 50% 46% 46%; background: radial-gradient(circle at 35% 30%, #F6D9A0, var(--gold) 60%); animation: seed-fall .75s cubic-bezier(.45, 0, 1, .5) both, seed-land .35s ease-out .75s both; }
 @keyframes seed-fall { 0% { transform: translateY(-16em) rotate(-200deg); } 100% { transform: none; } }
 @keyframes seed-land { 0% { transform: scale(1.6, .55); } 55% { opacity: 1; transform: scale(.85, 1.15); } 100% { opacity: 0; transform: scale(0); } }
 .sting .burst { position: absolute; z-index: 2; left: 35.5%; top: 47%; }
-.sting .burst i { position: absolute; left: 0; top: 0; width: .42em; height: .42em; margin: -.21em; border-radius: 50%; background: var(--gold-soft); opacity: 0; animation: lr-spark 1.3s cubic-bezier(.15, .85, .3, 1) 1.1s both; }
+.sting .burst i { position: absolute; left: 0; top: 0; width: .42em; height: .42em; margin: -.21em; border-radius: 50%; background: var(--gold-soft); opacity: 0; animation: lr-spark 1s cubic-bezier(.15, .85, .3, 1) .83s both; }
 .sting .burst i:nth-child(3n) { background: var(--parchment); width: .3em; height: .3em; }
-.sting .burst i:nth-child(2n) { animation-delay: 1.18s; }
+.sting .burst i:nth-child(2n) { animation-delay: .89s; }
 @keyframes lr-spark { 0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scale(1.2); } 100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--r)) scale(.2); } }
 .sting .tw { position: absolute; z-index: 2; width: .55em; height: .55em; background: var(--gold-soft); transform: rotate(45deg) scale(0); border-radius: 2px; box-shadow: 0 0 .5em rgba(231, 194, 127, .9); animation: lr-twinkle 1.8s ease-in-out infinite; }
 @keyframes lr-twinkle { 0%, 100% { transform: rotate(45deg) scale(0); opacity: 0; } 50% { transform: rotate(45deg) scale(1); opacity: 1; } }
@@ -904,7 +904,7 @@ function animLogo(intro) {
   const sparks = Array.from({
     length: 12
   }, (_, k) => `<i style="--a:${k * 30 + k % 2 * 12}deg;--r:${3.2 + k % 3 * 1.6}em"></i>`).join("");
-  const stars = [[8, 12, 4.5], [88, 6, 5], [96, 58, 5.5], [4, 70, 6]].map(([x, y, d]) => `<span class="tw" style="left:${x}%;top:${y}%;animation-delay:${d}s"></span>`).join("");
+  const stars = [[8, 12, 3.4], [88, 6, 3.75], [96, 58, 4.1], [4, 70, 4.5]].map(([x, y, d]) => `<span class="tw" style="left:${x}%;top:${y}%;animation-delay:${d}s"></span>`).join("");
   return `<div class="sting" aria-hidden="true"><span class="seed"></span><span class="burst">${sparks}</span>${svg.outerHTML}${stars}</div>`;
 }
 
@@ -995,21 +995,21 @@ function playSting(offset) {
     o.start(t);
     o.stop(t + dur + 0.05);
   }
-  // 1. seed falls (long whistle) and lands (soft plunk)
-  glide(1500, 380, t0, 0.98, 0.05);
-  glide(190, 58, t0 + 1.0, 0.32, 0.5);
+  // 1. seed falls (whistle) and lands (soft plunk)
+  glide(1500, 380, t0, 0.74, 0.05);
+  glide(190, 58, t0 + 0.75, 0.3, 0.5);
   // 2. sparkle burst
-  [93, 98, 100, 102, 105, 107, 110].forEach((m, k) => pluck(m, t0 + 1.1 + k * 0.05 + Math.random() * 0.03, 0.07, 0.6));
-  // 3. sprout grows: slow rising bloop with a wobble at the top
-  glide(220, 880, t0 + 1.15, 0.9, 0.12, "triangle");
-  glide(880, 740, t0 + 2.05, 0.35, 0.06, "triangle");
+  [93, 98, 100, 102, 105, 107, 110].forEach((m, k) => pluck(m, t0 + 0.83 + k * 0.04 + Math.random() * 0.02, 0.07, 0.55));
+  // 3. sprout grows: rising bloop with a wobble at the top
+  glide(220, 880, t0 + 0.86, 0.68, 0.12, "triangle");
+  glide(880, 740, t0 + 1.54, 0.26, 0.06, "triangle");
   // 4. "Little" climbs as each letter springs up; "Roots" bounces down as each letter lands
-  [74, 76, 78, 81, 83].forEach((m, k) => pluck(m, t0 + 1.86 + [0, 2, 3, 4, 5][k] * 0.18, 0.3));
-  [86, 83, 81, 78, 76].forEach((m, k) => pluck(m, t0 + 3.35 + k * 0.18, 0.26));
-  // 5. signature: warm chord + bell on the hop, then a soft shimmer as the stars twinkle
-  [62, 66, 69, 74].forEach((m, k) => pluck(m, t0 + 4.16 + k * 0.03, 0.2, 3));
+  [74, 76, 78, 81, 83].forEach((m, k) => pluck(m, t0 + 1.4 + [0, 2, 3, 4, 5][k] * 0.135, 0.3));
+  [86, 83, 81, 78, 76].forEach((m, k) => pluck(m, t0 + 2.54 + k * 0.135, 0.26));
+  // 5. signature: warm chord + bell on the hop, then soft chimes as the stars twinkle
+  [62, 66, 69, 74].forEach((m, k) => pluck(m, t0 + 3.12 + k * 0.025, 0.2, 2.6));
   [50, 57].forEach(m => {
-    const ts = t0 + 4.1;
+    const ts = t0 + 3.08;
     if (late(ts)) return;
     const o = ac.createOscillator(),
       g = ac.createGain(),
@@ -1022,14 +1022,14 @@ function playSting(offset) {
     lp.connect(g);
     send(g);
     g.gain.setValueAtTime(0.0001, ts);
-    g.gain.exponentialRampToValueAtTime(0.06, ts + 0.35);
-    g.gain.exponentialRampToValueAtTime(0.0001, ts + 2.4);
+    g.gain.exponentialRampToValueAtTime(0.06, ts + 0.26);
+    g.gain.exponentialRampToValueAtTime(0.0001, ts + 1.9);
     o.start(ts);
-    o.stop(ts + 2.5);
+    o.stop(ts + 2);
   });
-  pluck(98, t0 + 4.24, 0.16, 2.6);
-  pluck(105, t0 + 4.6, 0.07, 2);
-  [102, 107, 105, 110].forEach((m, k) => pluck(m, t0 + 4.9 + k * 0.4, 0.045, 1.2));
+  pluck(98, t0 + 3.18, 0.16, 2.2);
+  pluck(105, t0 + 3.45, 0.07, 1.8);
+  [102, 107, 105, 110].forEach((m, k) => pluck(m, t0 + 3.68 + k * 0.3, 0.045, 1.1));
 }
 const $ = s => document.querySelector(s);
 const bySlug = s => CATALOG.find(v => v.slug === s);
@@ -1605,7 +1605,7 @@ function playYouTube(v, el) {
     ytp: null,
     idle: null,
     end: null,
-    stingEnd: Date.now() + 6300
+    stingEnd: Date.now() + 4900
   };
   playSting();
   P.tick = setInterval(() => {
@@ -2060,7 +2060,7 @@ try {
   removeEventListener(ev, joinSplash);
   const el = document.querySelector("#splash"),
     t = (Date.now() - splashStart) / 1000;
-  if (splashSound || !el || t > 6.2) return;
+  if (splashSound || !el || t > 4.7) return;
   splashSound = true;
   unlockAudio();
   playSting(t);
@@ -2072,7 +2072,7 @@ renderRows();
 setTimeout(() => {
   $("#splash").classList.add("done");
   setTimeout(() => $("#splash").remove(), 700);
-}, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 7800);
+}, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 6200);
 setFocus($("#heroPlay"));
 let rz;
 addEventListener("resize", () => {
