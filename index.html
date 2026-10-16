@@ -1,7 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0D322C">
 <title>LittleRoots TV</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,SOFT,wght@9..144,100,500;9..144,100,700;9..144,100,900&family=Nunito:wght@500;700;800&display=swap">
+<script>(function(){var d=document.createElement("div");d.style.display="flex";d.style.flexDirection="column";d.style.rowGap="1px";d.appendChild(document.createElement("div"));d.appendChild(document.createElement("div"));document.documentElement.appendChild(d);var ok=d.scrollHeight===1;d.parentNode.removeChild(d);if(!ok)document.documentElement.className+=" no-flexgap";})();</script>
 <style>
 /* Layout: a living-room TV app. Full-bleed storybook hero, Disney-style "worlds" tiles, then Netflix-style rows. Built for a 10-foot screen and a remote; also works by touch. */
 :root {
@@ -15,26 +21,27 @@
   --danger: #E08A6D;
   --display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --body: "Nunito", "Trebuchet MS", system-ui, sans-serif;
-  --gutter: max(16px, 4vw);
+  --gutter: 4vw;
   color-scheme: dark;
 }
-html { font-size: clamp(14px, 0.55vw + 9px, 24px); }
+html { font-size: calc(0.55vw + 9px); font-size: clamp(14px, 0.55vw + 9px, 24px); }
 html, body { background: var(--forest); color: var(--parchment); }
 body { font-family: var(--body); line-height: 1.45; overflow-x: hidden; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; text-align: left; }
 h1, h2, h3 { font-family: var(--display); font-variation-settings: "SOFT" 100; margin: 0; text-wrap: balance; }
-.wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.wrap { padding-left: var(--gutter); padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: var(--gutter); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
 
 /* focus: one gold ring language for remote, keyboard and touch */
 .fx { outline: none; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
-.fx:focus-visible, .fx.is-focus { box-shadow: 0 0 0 3px var(--forest), 0 0 0 6px var(--gold); }
+.fx.is-focus { box-shadow: 0 0 0 3px var(--forest), 0 0 0 6px var(--gold); }
+.fx:focus-visible { box-shadow: 0 0 0 3px var(--forest), 0 0 0 6px var(--gold); }
 .card.fx:focus-visible, .card.fx.is-focus, .world.fx:focus-visible, .world.fx.is-focus { transform: scale(1.06); z-index: 2; }
 
 /* top bar */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; gap: 1.5rem; padding-block: .9rem; background: linear-gradient(rgba(13,50,44,.92), rgba(13,50,44,0)); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--forest); }
+body::before { content: ""; position: fixed; top: 0; right: 0; bottom: auto; left: 0; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--forest); }
 .logo { width: 7.5rem; flex: none; display: block; }
 .logo .st0 { fill: var(--parchment); } .logo .st1 { fill: var(--gold); }
 .nav { display: flex; gap: .35rem; overflow-x: auto; scrollbar-width: none; min-width: 0; padding: 6px; }
@@ -44,13 +51,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav .parents { margin-left: auto; color: var(--gold-soft); }
 
 /* hero */
-.hero { position: relative; display: grid; align-items: end; min-height: min(66vh, 38rem); margin-top: -8rem; overflow: hidden; }
-.hero canvas, .hero .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero { position: relative; display: grid; align-items: end; min-height: 66vh; min-height: min(66vh, 38rem); margin-top: -8rem; overflow: hidden; }
+.hero canvas, .hero .hero-img { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero .hero-img { object-position: 70% 30%; }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--forest) 0%, rgba(13,50,44,.82) 34%, rgba(13,50,44,0) 70%), linear-gradient(0deg, var(--forest) 0%, rgba(13,50,44,0) 40%); }
+.hero::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(90deg, var(--forest) 0%, rgba(13,50,44,.82) 34%, rgba(13,50,44,0) 70%), linear-gradient(0deg, var(--forest) 0%, rgba(13,50,44,0) 40%); }
 .hero-copy { position: relative; z-index: 1; display: grid; gap: .8rem; max-width: 34rem; padding-block: 7rem 2.2rem; }
 .eyebrow { font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-soft); }
-.hero h1 { font-size: clamp(2.1rem, 4.6vw, 4.2rem); line-height: 1; font-weight: 900; }
+.hero h1 { font-size: 4.6vw; font-size: clamp(2.1rem, 4.6vw, 4.2rem); line-height: 1; font-weight: 900; }
 .hero p { margin: 0; color: var(--mist); max-width: 30rem; }
 .meta { display: flex; flex-wrap: wrap; gap: .4rem .9rem; font-size: .85rem; font-weight: 700; color: var(--mist); }
 .meta .ref { color: var(--gold-soft); }
@@ -62,8 +69,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* worlds (the Disney-style brand tiles) */
 .worlds { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; padding-block: .6rem 1.4rem; }
 .world { position: relative; aspect-ratio: 16 / 10; border-radius: 1rem; overflow: hidden; background: var(--canopy); border: 1px solid rgba(243,235,216,.12); max-width: 100%; }
-.world canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .9; }
-.world span { position: absolute; inset: auto 0 0 0; padding: 1.6rem .8rem .7rem; font-family: var(--display); font-weight: 700; font-size: 1.05rem; line-height: 1.1; background: linear-gradient(0deg, rgba(13,50,44,.92), rgba(13,50,44,0)); }
+.world canvas { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; opacity: .9; }
+.world span { position: absolute; top: auto; right: 0; bottom: 0; left: 0; padding: 1.6rem .8rem .7rem; font-family: var(--display); font-weight: 700; font-size: 1.05rem; line-height: 1.1; background: linear-gradient(0deg, rgba(13,50,44,.92), rgba(13,50,44,0)); }
 
 /* rows */
 .row { display: grid; gap: .7rem; padding-block: .5rem 1.2rem; }
@@ -72,9 +79,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .row-head small { color: var(--mist); font-weight: 700; font-size: .85rem; }
 .track { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x proximity; padding: 10px 6px 14px; margin: -10px -6px -14px; scrollbar-width: none; }
 .track::-webkit-scrollbar { display: none; }
-.card { flex: none; width: clamp(150px, 16vw, 330px); display: grid; gap: .45rem; scroll-snap-align: start; border-radius: .8rem; }
+.card { flex: none; width: 16vw; width: clamp(150px, 16vw, 330px); display: grid; gap: .45rem; scroll-snap-align: start; border-radius: .8rem; }
 .thumb { position: relative; aspect-ratio: 16 / 9; border-radius: .8rem; overflow: hidden; background: var(--canopy); max-width: 100%; }
-.thumb canvas, .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.thumb canvas, .thumb img { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 .badge.new { background: var(--gold); color: var(--forest); }
 .badge { position: absolute; top: .5rem; left: .5rem; padding: .15rem .5rem; border-radius: 99px; font-size: .7rem; font-weight: 800; background: rgba(13,50,44,.85); color: var(--gold-soft); }
 .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(13,50,44,.7); }
@@ -88,13 +95,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .foot code { color: var(--gold-soft); }
 
 /* overlays */
-.layer { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(6,24,21,.78); backdrop-filter: blur(6px); }
-.sheet { width: min(58rem, 100%); max-height: 100%; overflow: auto; border-radius: 1.2rem; background: var(--canopy); border: 1px solid rgba(243,235,216,.1); }
+.layer { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; display: grid; place-items: center; padding: 16px 16px 16px 16px; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(6,24,21,.78); backdrop-filter: blur(6px); }
+.sheet { width: 100%; width: min(58rem, 100%); max-height: 100%; overflow: auto; border-radius: 1.2rem; background: var(--canopy); border: 1px solid rgba(243,235,216,.1); }
 .sheet-art { position: relative; aspect-ratio: 21 / 8; max-width: 100%; }
-.sheet-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.sheet-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--canopy), rgba(19,68,59,0) 70%); }
+.sheet-art canvas { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; }
+.sheet-art::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(0deg, var(--canopy), rgba(19,68,59,0) 70%); }
 .sheet-body { display: grid; gap: 1rem; padding: 0 1.6rem 1.6rem; margin-top: -2.5rem; position: relative; }
-.sheet h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.05; }
+.sheet h2 { font-size: 3vw; font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.05; }
 .sheet p { margin: 0; max-width: 40rem; }
 .talk { display: grid; gap: .5rem; padding: 1rem 1.2rem; border-radius: .9rem; background: var(--forest); }
 .talk h3 { font-size: 1.05rem; font-weight: 700; color: var(--gold-soft); }
@@ -106,25 +113,25 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ep > span:last-child { color: var(--mist); font-size: .85rem; font-variant-numeric: tabular-nums; }
 
 /* player */
-.player { position: fixed; inset: 0; z-index: 60; background: #000; color: var(--parchment); display: grid; }
-.yt-frame { position: absolute; inset: 0; overflow: hidden; background: #000; }
-.yt-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
-.p-shield { position: absolute; inset: 0; z-index: 1; }
-.p-pause { position: absolute; inset: 0; z-index: 2; display: grid; align-content: center; gap: .5rem; padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); background: rgba(0,0,0,.72); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.player { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 60; background: #000; color: var(--parchment); display: grid; }
+.yt-frame { position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow: hidden; background: #000; }
+.yt-frame iframe { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
+.p-shield { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; }
+.p-pause { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 2; display: grid; align-content: center; gap: .5rem; padding-inline: var(--gutter); padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); background: rgba(0,0,0,.72); opacity: 0; pointer-events: none; transition: opacity .3s; }
 .player.paused .p-pause { opacity: 1; }
-.p-pause h3 { font-family: var(--display); font-size: clamp(1.8rem, 4vw, 3.6rem); font-weight: 900; max-width: 40rem; }
+.p-pause h3 { font-family: var(--display); font-size: 4vw; font-size: clamp(1.8rem, 4vw, 3.6rem); font-weight: 900; max-width: 40rem; }
 .p-pause p { margin: 0; max-width: 36rem; color: var(--mist); }
-.p-top { position: absolute; z-index: 3; inset: 0 0 auto; display: flex; align-items: center; gap: 1rem; padding: max(1.2rem, env(safe-area-inset-top, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)) 3rem max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,0)); transition: opacity .4s; }
-.p-top h2 { font-size: clamp(1.1rem, 2vw, 1.7rem); font-weight: 700; }
+.p-top { position: absolute; z-index: 3; top: 0; right: 0; bottom: auto; left: 0; display: flex; align-items: center; gap: 1rem; padding: 1.2rem var(--gutter) 3rem var(--gutter); padding: max(1.2rem, env(safe-area-inset-top, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)) 3rem max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,0)); transition: opacity .4s; }
+.p-top h2 { font-size: 2vw; font-size: clamp(1.1rem, 2vw, 1.7rem); font-weight: 700; }
 .p-top .round { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; background: rgba(243,235,216,.14); flex: none; }
 .player.idle .p-top { opacity: 0; }
-.player .p-ui { z-index: 3; position: absolute; inset: auto 0 0 0; }
-.p-cover { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; background: var(--forest); transition: opacity .7s; overflow: hidden; }
-.p-cover > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; filter: blur(6px); transform: scale(1.08); }
+.player .p-ui { z-index: 3; position: absolute; top: auto; right: 0; bottom: 0; left: 0; }
+.p-cover { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; display: grid; place-items: center; background: var(--forest); transition: opacity .7s; overflow: hidden; }
+.p-cover > img { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; filter: blur(6px); transform: scale(1.08); }
 .p-cover.gone { opacity: 0; pointer-events: none; }
 .p-cover-txt { position: relative; display: grid; justify-items: center; gap: .7rem; text-align: center; padding: 1rem; }
-.p-cover-txt .logo-anim { width: min(12rem, 45vw); margin-bottom: .4rem; }
-.p-cover-txt h3 { font-size: clamp(1.8rem, 4.5vw, 4rem); font-weight: 900; max-width: 40rem; }
+.p-cover-txt .logo-anim { width: 45vw; width: min(12rem, 45vw); margin-bottom: .4rem; }
+.p-cover-txt h3 { font-size: 4.5vw; font-size: clamp(1.8rem, 4.5vw, 4rem); font-weight: 900; max-width: 40rem; }
 /* animated logo: letters pop in, sprout grows, then a gentle wave while loading */
 .logo-anim { display: block; overflow: visible; }
 .logo-anim .st0 { fill: var(--parchment); } .logo-anim .st1 { fill: var(--gold); }
@@ -134,41 +141,41 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes lr-wave { 0%, 55%, 100% { transform: none; } 25% { transform: translateY(-9%); } }
 @keyframes lr-grow { 0% { opacity: 0; transform: scale(.2, 0); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
 @keyframes lr-sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg) scale(1.04); } }
-.splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--forest); transition: opacity .6s ease, visibility .6s; }
-.splash .logo-anim { width: min(16rem, 55vw); }
+.splash { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 100; display: grid; place-items: center; background: var(--forest); transition: opacity .6s ease, visibility .6s; }
+.splash .logo-anim { width: 55vw; width: min(16rem, 55vw); }
 .splash.done { opacity: 0; visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .logo-anim path, .logo-anim .st1 { animation: lr-fade .4s both; } @keyframes lr-fade { from { opacity: 0; } } }
 .p-spin { width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 4px solid rgba(243,235,216,.2); border-top-color: var(--gold); animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .p-buffer { position: absolute; z-index: 2; left: 50%; top: 50%; width: 7rem; transform: translate(-50%, -50%); display: none; padding: 1rem 1.2rem; border-radius: 1rem; background: rgba(13,50,44,.75); }
 .player.buffering .p-buffer { display: block; }
-.p-end { position: absolute; inset: 0; z-index: 6; display: grid; align-content: center; gap: 1.2rem; padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(90deg, var(--forest) 30%, rgba(13,50,44,.7)), var(--forest); }
+.p-end { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 6; display: grid; align-content: center; gap: 1.2rem; padding-inline: var(--gutter); padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(90deg, var(--forest) 30%, rgba(13,50,44,.7)), var(--forest); }
 .p-end .next { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 1.5rem; align-items: center; max-width: 60rem; }
 .p-end .next img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: .9rem; }
-.p-end .next h3 { font-family: var(--display); font-size: clamp(1.6rem, 3.4vw, 3rem); font-weight: 900; }
+.p-end .next h3 { font-family: var(--display); font-size: 3.4vw; font-size: clamp(1.6rem, 3.4vw, 3rem); font-weight: 900; }
 .count { color: var(--gold-soft); font-weight: 800; }
 .p-track { cursor: pointer; }
 .p-row .btn svg { width: 1.2em; height: 1.2em; }
 @media (max-width: 760px) { .p-end .next { grid-template-columns: 1fr; } .p-row .btn { padding: .6rem .9rem; } }
 @media (prefers-reduced-motion: reduce) { .p-spin { animation-duration: 3s; } }
-.p-close { position: absolute; z-index: 2; top: max(1.2rem, env(safe-area-inset-top, 0px)); left: max(var(--gutter), env(safe-area-inset-left, 0px)); transition: opacity .4s; }
+.p-close { position: absolute; z-index: 2; top: 1.2rem; top: max(1.2rem, env(safe-area-inset-top, 0px)); left: var(--gutter); left: max(var(--gutter), env(safe-area-inset-left, 0px)); transition: opacity .4s; }
 .player.idle .p-close { opacity: 0; }
-.player canvas, .player video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.player canvas, .player video { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
 .player canvas.kb { animation: kb 30s ease-in-out infinite alternate; }
 @keyframes kb { from { transform: scale(1); } to { transform: scale(1.12) translate(-2%, 1%); } }
-.p-ui { position: relative; z-index: 1; align-self: end; display: grid; gap: .8rem; padding: 2rem max(var(--gutter), env(safe-area-inset-right, 0px)) max(2rem, env(safe-area-inset-bottom, 0px)) max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(0deg, rgba(0,0,0,.85), rgba(0,0,0,0)); transition: opacity .4s; }
+.p-ui { position: relative; z-index: 1; align-self: end; display: grid; gap: .8rem; padding: 2rem var(--gutter) 2rem var(--gutter); padding: 2rem max(var(--gutter), env(safe-area-inset-right, 0px)) max(2rem, env(safe-area-inset-bottom, 0px)) max(var(--gutter), env(safe-area-inset-left, 0px)); background: linear-gradient(0deg, rgba(0,0,0,.85), rgba(0,0,0,0)); transition: opacity .4s; }
 .player.idle .p-ui { opacity: 0; }
-.p-ui h2 { font-size: clamp(1.4rem, 2.6vw, 2.4rem); font-weight: 700; }
+.p-ui h2 { font-size: 2.6vw; font-size: clamp(1.4rem, 2.6vw, 2.4rem); font-weight: 700; }
 .p-track { height: 6px; border-radius: 3px; background: rgba(243,235,216,.25); overflow: hidden; }
 .p-track i { display: block; height: 100%; background: var(--gold); width: 0; }
 .p-row { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
 .p-row .time { margin-left: auto; color: var(--mist); font-weight: 700; }
 .p-note { font-size: .8rem; color: var(--mist); }
-.p-title { position: absolute; z-index: 1; left: 50%; top: 42%; transform: translate(-50%, -50%); text-align: center; display: grid; gap: .4rem; text-shadow: 0 2px 20px rgba(0,0,0,.5); width: min(90%, 40rem); }
-.p-title h3 { font-size: clamp(1.8rem, 4.5vw, 4rem); font-weight: 900; }
+.p-title { position: absolute; z-index: 1; left: 50%; top: 42%; transform: translate(-50%, -50%); text-align: center; display: grid; gap: .4rem; text-shadow: 0 2px 20px rgba(0,0,0,.5); width: 90%; width: min(90%, 40rem); }
+.p-title h3 { font-size: 4.5vw; font-size: clamp(1.8rem, 4.5vw, 4rem); font-weight: 900; }
 
 /* gate + parents */
-.gate { width: min(30rem, 100%); padding: 1.8rem; border-radius: 1.2rem; background: var(--canopy); display: grid; gap: 1rem; text-align: center; }
+.gate { width: 100%; width: min(30rem, 100%); padding: 1.8rem; border-radius: 1.2rem; background: var(--canopy); display: grid; gap: 1rem; text-align: center; }
 .gate h2 { font-size: 1.6rem; }
 .gate .q { font-family: var(--display); font-size: 2.4rem; font-weight: 900; color: var(--gold-soft); }
 .choices { display: flex; justify-content: center; gap: .8rem; flex-wrap: wrap; }
@@ -180,7 +187,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .chips .btn[aria-pressed="true"] { background: var(--gold); color: var(--forest); }
 .hint { font-size: .8rem; color: var(--mist); }
 
-.toast { position: fixed; z-index: 70; left: 50%; bottom: max(1.5rem, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); padding: .7rem 1.2rem; border-radius: 99px; background: var(--parchment); color: var(--forest); font-weight: 800; }
+.toast { position: fixed; z-index: 70; left: 50%; bottom: 1.5rem; bottom: max(1.5rem, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); padding: .7rem 1.2rem; border-radius: 99px; background: var(--parchment); color: var(--forest); font-weight: 800; }
 
 @media (max-width: 760px) {
   .worlds { grid-template-columns: repeat(5, minmax(9.5rem, 1fr)); overflow-x: auto; scrollbar-width: none; padding: 10px 6px 14px; margin: -10px -6px 0; }
@@ -190,8 +197,30 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .ep { grid-template-columns: auto 1fr; } .ep > span:last-child { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .fx, .p-ui { transition: none; } .player canvas.kb { animation: none; } }
-</style>
 
+/* ---- TV-safe fallbacks (added by build) ---- */
+html, body { margin: 0; }
+@supports not (aspect-ratio: 1 / 1) {
+  .thumb { height: 0; padding-top: 56.25%; }
+  .world { height: 0; padding-top: 62.5%; }
+  .sheet-art { height: 0; padding-top: 38.1%; }
+  .verse .thumb { display: block; padding: 56.25% 0 0; }
+  .verse q { position: absolute; top: 50%; left: 1rem; right: 1rem; transform: translateY(-50%); }
+  .p-end .next img { height: auto; }
+}
+.no-flexgap .top > * + * { margin-left: 1.5rem; }
+.no-flexgap .nav > * + * { margin-left: .35rem; }
+.no-flexgap .nav .parents { margin-left: auto; }
+.no-flexgap .track > * + * { margin-left: 1rem; }
+.no-flexgap .actions > *, .no-flexgap .chips > *, .no-flexgap .choices > * { margin: 0 .7rem .6rem 0; }
+.no-flexgap .meta > * { margin: 0 .9rem .3rem 0; }
+.no-flexgap .row-head > * + * { margin-left: .8rem; }
+.no-flexgap .p-row > * + * { margin-left: .8rem; }
+.no-flexgap .p-top > * + * { margin-left: 1rem; }
+.no-flexgap .btn > svg { margin-right: .5rem; }
+</style>
+</head>
+<body>
 <header class="top wrap">
   <svg class="logo" viewBox="132 292 310 222" role="img" aria-label="LittleRoots">
     <path class="st0" d="M190.71,408.07c7.52,0.24,14.56,0.78,21.17,4.18c5.28,2.72,8.92,7,10.26,12.28 c2.91,11.51,2.28,21.67-8.01,29.73c-1.98,1.55-2.34,2.83-1.36,5.08c4.24,9.69,9.03,19.1,13.88,28.48 c2.51,4.86,7.31,6.28,12.59,4.18c4.87-1.93,9.62-3.65,14.55-0.07c2.86,2.07,4.18,4.75,3.9,8.18c-0.24,3.04-2.27,4.83-4.91,5.82 c-2.8,1.04-5.01,0-6.47-2.58c-0.92-1.62-1.33-3.13,0.98-3.97c0.25,0.1,0.54,0.13,0.7,0.29c0.93,0.94,1.37,2.64,3.23,2.13 c1.16-0.32,1.58-1.25,1.59-2.35c0.02-1.86-1.31-2.55-2.76-3.25c-2.3-1.11-4.45-0.31-6.21,0.8c-8.31,5.25-16.13,4.88-23.56-1.84 c-1.14,5.33,2.33,7.78,6.34,10.23c-3.5,2.2-5.83,0.72-8.06-0.88c-2.45-1.76-3.33-4.48-3.88-7.25c-0.45-2.29-1.48-4.57-3.61-5.03 c-7.23-1.57-8.63-7.54-10.73-13.08c-1.75-4.64-3.43-9.3-5.21-13.93c-0.69-1.78-1.31-3.61-4.04-3.06c-2.59,0.53-3.23,1.99-3.1,4.36 c0.3,5.47,0.37,10.96,0.75,16.42c0.27,3.88-1.69,5.52-5.19,6.25c-5.96,1.24-6.48,1.85-7.41,7.89c-0.44,2.89-0.52,5.88-3.05,7.98 c-1.06,0.88-1.97,2.07-3.68,1.66c-1.21-1.71,0.52-2.77,0.92-4.1c0.41-1.34,0.79-2.67-0.08-4.24c-2.46,0.93-4.8,1.89-7.2,2.71 c-5.83,2.01-13.52-2.46-14.49-8.43c-0.55-3.4,0.73-6.04,3.83-7.59c2.36-1.18,4.76-1.14,6.72,0.86c1.89,1.93,2.17,3.88-0.49,5.76 c-0.46-0.35-0.92-0.57-1.19-0.94c-0.81-1.09-1.47-2.91-3.14-1.27c-1.51,1.48-0.87,3.21,0.64,4.27c1.97,1.38,4.05,2.74,6.73,1.42 c3.7-1.82,5.67-4.89,5.74-8.79c0.21-12.1,1.21-24.17,0.37-36.3c-0.79-11.44,0.24-22.95-0.88-34.4c-0.33-3.36,1.28-4.9,4.44-5.45 C177.62,409.14,183.95,408.27,190.71,408.07z M193.78,443.63c0.69-0.32,1.38-0.65,2.07-0.97c5.63-2.57,8.44-8.07,6.56-12.87 c-1.56-3.99-6.74-5.54-12.64-4.06c-2.04,0.51-2.77,1.58-2.72,3.45c0.1,3.79-0.23,7.59,0.51,11.37 C188.47,445.1,188.65,445.28,193.78,443.63z"/>
@@ -238,8 +267,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <div class="toast" id="toast" hidden></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
-<script>
-/* =================================================================
+<script>/* =================================================================
    CONFIG — the only part you edit to go live
    VIDEO_BASE_URL: your Cloudflare R2 public address, e.g.
      "https://videos.littleroots.tv"
@@ -247,7 +275,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
    Each episode streams from  VIDEO_BASE_URL/<slug>/master.m3u8
    and uses              VIDEO_BASE_URL/<slug>/thumbnail.jpg
    ================================================================= */
-const CONFIG = { VIDEO_BASE_URL: "" };
+const CONFIG = {
+  VIDEO_BASE_URL: ""
+};
 /* YouTube mode: plays your channel videos inside the app. Works when the page is opened from a
    normal web address (e.g. Netlify). Set false where embeds are blocked; then OK opens YouTube. */
 const EMBED_YOUTUBE = true;
@@ -256,233 +286,735 @@ const ytThumb = (id, big) => `https://i.ytimg.com/vi/${id}/${big ? "maxresdefaul
 const DEMO = !CONFIG.VIDEO_BASE_URL;
 
 /* Worlds: the big brand tiles (like Disney / Pixar / Marvel tiles). */
-const WORLDS = [
-  { id: "stories",  name: "Bible Adventures", scene: { sky: "day",   motif: "ark" } },
-  { id: "bedtime",  name: "Bedtime Bible",    scene: { sky: "night", motif: "moon" } },
-  { id: "worship",  name: "Worship & Songs",  scene: { sky: "dusk",  motif: "notes" } },
-  { id: "verses",   name: "Memory Verses",    scene: { sky: "warm",  motif: "lamp" } },
-  { id: "prayers",  name: "Prayers & Affirmations", scene: { sky: "dawn", motif: "dove" } },
-];
+const WORLDS = [{
+  id: "stories",
+  name: "Bible Adventures",
+  scene: {
+    sky: "day",
+    motif: "ark"
+  }
+}, {
+  id: "bedtime",
+  name: "Bedtime Bible",
+  scene: {
+    sky: "night",
+    motif: "moon"
+  }
+}, {
+  id: "worship",
+  name: "Worship & Songs",
+  scene: {
+    sky: "dusk",
+    motif: "notes"
+  }
+}, {
+  id: "verses",
+  name: "Memory Verses",
+  scene: {
+    sky: "warm",
+    motif: "lamp"
+  }
+}, {
+  id: "prayers",
+  name: "Prayers & Affirmations",
+  scene: {
+    sky: "dawn",
+    motif: "dove"
+  }
+}];
 
 /* Sample catalog. Replace with your real episodes. */
-const CATALOG = [
-  /* Real LittleRoots videos from YouTube */
-  { slug: "ade-and-the-jollof-mould", yt: "sg7R0tbtFaw", world: "stories", title: "Ade and the Jollof Mould", ref: "Romans 12:2", kind: "Story", age: "4–10", family: true,
-    scene: { sky: "warm", motif: "loaves" },
-    desc: "Everyone wants Ade to fit their mould, but God made him on purpose. An animated story about staying true to your faith, inspired by Pastor Ayo Ajani's message Be Not Conformed.",
-    talk: ["What does it mean to be pressed into someone else's mould?", "When is it hard to be different because you love God?"] },
-  { slug: "jesus-is-my-king", yt: "9tcy6v49dGI", world: "worship", title: "Jesus Is My King", kind: "Song", age: "3–8", family: true,
-    scene: { sky: "dawn", motif: "notes" },
-    desc: "A catchy, easy-to-learn song about the love and greatness of Jesus. Made for Sunday school, children's church and family worship.",
-    talk: ["What does it mean that Jesus is King?", "Which part of the song do you like singing loudest?"] },
-  { slug: "come-and-praise-the-lord", yt: "NfJ_lq1TOU8", world: "worship", title: "Dance & Play! Come and Praise the Lord", kind: "Song", age: "3–8",
-    scene: { sky: "day", motif: "notes" },
-    desc: "Get up and move! An action song for praising God with your whole body.",
-    talk: ["What's your favourite dance move for praising God?", "Who can you teach this song to?"] },
-  { slug: "he-will-never-let-you-go", yt: "lLJR4f_vgPY", world: "worship", title: "He Will Never Let You Go", kind: "Song", age: "3–10", family: true,
-    scene: { sky: "night", motif: "heart" },
-    desc: "A sweet, gentle worship song about God's love that holds on to us. Lovely for quiet time or bedtime.",
-    talk: ["How does it feel to know God never lets go of you?", "When could we sing this together?"] },
-  /* Sample titles below: replace with more of your episodes */
-  { slug: "noahs-big-boat", world: "stories", title: "Noah's Big Boat", ref: "Genesis 6–9", mins: 8, age: "3–8", family: true,
-    series: "heroes", ep: 1, scene: { sky: "sea", motif: "ark" },
-    desc: "Rain is coming, and God asks Noah to build the biggest boat anyone has ever seen. Zara counts the animals two by two and waits for the rainbow promise.",
-    talk: ["Why do you think Noah kept building when people laughed?", "What promise does the rainbow remind us of?"] },
-  { slug: "daniel-and-the-lions", world: "stories", title: "Daniel and the Lions", ref: "Daniel 6", mins: 7, age: "4–10", family: true,
-    series: "heroes", ep: 2, scene: { sky: "dusk", motif: "lion" },
-    desc: "Daniel keeps praying even when the king's law says stop. A night in the lions' den shows that God is with him.",
-    talk: ["When is it hard to do the right thing?", "Who can you pray for tonight?"] },
-  { slug: "brave-little-david", world: "stories", title: "Brave Little David", ref: "1 Samuel 17", mins: 9, age: "4–10",
-    series: "heroes", ep: 3, scene: { sky: "day", motif: "stone" },
-    desc: "A shepherd boy with five smooth stones faces a giant, trusting God more than his size.",
-    talk: ["What feels like a 'giant' in your life?", "How did David get brave?"] },
-  { slug: "jonah-and-the-big-fish", world: "stories", title: "Jonah and the Big Fish", ref: "Jonah 1–2", mins: 7, age: "3–8",
-    series: "heroes", ep: 4, scene: { sky: "sea", motif: "whale" },
-    desc: "Jonah tries to run from God's plan and ends up inside a very big fish. God gives him a second chance.",
-    talk: ["Have you ever wanted to run away from a hard job?", "What does a second chance feel like?"] },
-  { slug: "walls-of-jericho", world: "stories", title: "The Walls of Jericho", ref: "Joshua 6", mins: 6, age: "4–10",
-    scene: { sky: "warm", motif: "wall" },
-    desc: "Seven days of marching, one big shout, and a city wall comes tumbling down.",
-    talk: ["Why did God ask the people to march quietly first?", "Can you remember a time you had to be patient?"] },
-  { slug: "jesus-feeds-five-thousand", world: "stories", title: "A Lunch That Fed Thousands", ref: "John 6:1–14", mins: 6, age: "3–8", family: true,
-    scene: { sky: "day", motif: "loaves" },
-    desc: "A boy shares five loaves and two fish, and Jesus turns one small lunch into a feast for a hillside of people.",
-    talk: ["What small thing could you share this week?", "How many baskets were left over?"] },
-  { slug: "the-first-christmas", world: "stories", title: "The Very First Christmas", ref: "Luke 2:1–20", mins: 9, age: "3–10", family: true,
-    scene: { sky: "night", motif: "star" },
-    desc: "Shepherds, angels and a bright star lead to a baby in a manger. Zara tells the story the way her grandma told it to her.",
-    talk: ["Who in our family tells the Christmas story best?", "Why did the angels bring the news to shepherds?"] },
-  { slug: "the-lost-little-lamb", world: "bedtime", title: "The Lost Little Lamb", ref: "Luke 15:3–7", mins: 5, age: "3–6", family: true,
-    scene: { sky: "night", motif: "lamb" },
-    desc: "A gentle bedtime story about a shepherd who searches all night for one little lamb, because every one matters.",
-    talk: ["How does the shepherd feel when he finds the lamb?", "Who looks after you when you feel lost?"] },
-  { slug: "god-made-the-stars", world: "bedtime", title: "God Counts the Stars", ref: "Genesis 15:5", mins: 4, age: "3–6",
-    scene: { sky: "night", motif: "moon" },
-    desc: "Abraham looks up at a sky too full of stars to count. A slow, quiet story to end the day.",
-    talk: ["How many stars do you think there are?", "What promise did God make to Abraham?"] },
-  { slug: "goodnight-prayer-with-zara", world: "bedtime", title: "Goodnight Prayer with Zara", ref: "Psalm 4:8", mins: 3, age: "3–8",
-    scene: { sky: "night", motif: "lamp" },
-    desc: "Zara says thank you for the day, prays for family, and settles down to sleep in peace.",
-    talk: ["What are you thankful for today?", "Who would you like to pray for?"] },
-  { slug: "be-kind", world: "verses", title: "Be Kind to One Another", ref: "Ephesians 4:32", mins: 3, age: "3–8",
-    verse: "Be ye kind one to another, tenderhearted, forgiving one another.", scene: { sky: "warm", motif: "heart" },
-    desc: "Learn Ephesians 4:32 with actions and a catchy rhythm.", talk: ["What is one kind thing you can do tomorrow?"] },
-  { slug: "be-strong", world: "verses", title: "Be Strong and Courageous", ref: "Joshua 1:9", mins: 3, age: "4–10",
-    verse: "Be strong and of a good courage; be not afraid.", scene: { sky: "day", motif: "sun" },
-    desc: "A memory verse for brave days, first days of school and big new things.", talk: ["When do you need to be brave?"] },
-  { slug: "lamp-unto-my-feet", world: "verses", title: "A Lamp unto My Feet", ref: "Psalm 119:105", mins: 2, age: "3–8",
-    verse: "Thy word is a lamp unto my feet, and a light unto my path.", scene: { sky: "dusk", motif: "lamp" },
-    desc: "Zara walks a dark path with a little lamp to show how God's Word guides us.", talk: ["How does a lamp help in the dark?"] },
-  { slug: "morning-praise", world: "worship", title: "Morning Praise with Zara", ref: "Psalm 118:24", mins: 4, age: "3–8", family: true,
-    scene: { sky: "dawn", motif: "notes" },
-    desc: "Wake up, stretch and sing. A bright start to the school-run morning.", talk: ["What made you happy this morning?"] },
-  { slug: "creation-song", world: "worship", title: "The Creation Song", ref: "Genesis 1", mins: 5, age: "3–8",
-    scene: { sky: "day", motif: "sun" },
-    desc: "Seven days, seven verses. Sing through everything God made, from light to animals to people.", talk: ["What is your favourite thing God made?"] },
-  { slug: "i-am-loved", world: "prayers", title: "I Am Loved by God", ref: "1 John 4:19", mins: 3, age: "3–10",
-    scene: { sky: "dawn", motif: "heart" },
-    desc: "Short affirmations for children: I am loved, I am made on purpose, I am never alone.", talk: ["Which one of these is your favourite to say?"] },
-  { slug: "thank-you-for-food", world: "prayers", title: "Thank You for Our Food", ref: "1 Timothy 4:4", mins: 2, age: "3–6",
-    scene: { sky: "warm", motif: "loaves" },
-    desc: "A simple mealtime prayer to learn together at the table.", talk: ["Who helped make our food today?"] },
-];
-
-const SERIES = { heroes: { name: "Heroes of Faith", note: "Season 1 · watch in order" } };
+const CATALOG = [/* Real LittleRoots videos from YouTube */
+{
+  slug: "ade-and-the-jollof-mould",
+  yt: "sg7R0tbtFaw",
+  world: "stories",
+  title: "Ade and the Jollof Mould",
+  ref: "Romans 12:2",
+  kind: "Story",
+  age: "4–10",
+  family: true,
+  scene: {
+    sky: "warm",
+    motif: "loaves"
+  },
+  desc: "Everyone wants Ade to fit their mould, but God made him on purpose. An animated story about staying true to your faith, inspired by Pastor Ayo Ajani's message Be Not Conformed.",
+  talk: ["What does it mean to be pressed into someone else's mould?", "When is it hard to be different because you love God?"]
+}, {
+  slug: "jesus-is-my-king",
+  yt: "9tcy6v49dGI",
+  world: "worship",
+  title: "Jesus Is My King",
+  kind: "Song",
+  age: "3–8",
+  family: true,
+  scene: {
+    sky: "dawn",
+    motif: "notes"
+  },
+  desc: "A catchy, easy-to-learn song about the love and greatness of Jesus. Made for Sunday school, children's church and family worship.",
+  talk: ["What does it mean that Jesus is King?", "Which part of the song do you like singing loudest?"]
+}, {
+  slug: "come-and-praise-the-lord",
+  yt: "NfJ_lq1TOU8",
+  world: "worship",
+  title: "Dance & Play! Come and Praise the Lord",
+  kind: "Song",
+  age: "3–8",
+  scene: {
+    sky: "day",
+    motif: "notes"
+  },
+  desc: "Get up and move! An action song for praising God with your whole body.",
+  talk: ["What's your favourite dance move for praising God?", "Who can you teach this song to?"]
+}, {
+  slug: "he-will-never-let-you-go",
+  yt: "lLJR4f_vgPY",
+  world: "worship",
+  title: "He Will Never Let You Go",
+  kind: "Song",
+  age: "3–10",
+  family: true,
+  scene: {
+    sky: "night",
+    motif: "heart"
+  },
+  desc: "A sweet, gentle worship song about God's love that holds on to us. Lovely for quiet time or bedtime.",
+  talk: ["How does it feel to know God never lets go of you?", "When could we sing this together?"]
+}, /* Sample titles below: replace with more of your episodes */
+{
+  slug: "noahs-big-boat",
+  world: "stories",
+  title: "Noah's Big Boat",
+  ref: "Genesis 6–9",
+  mins: 8,
+  age: "3–8",
+  family: true,
+  series: "heroes",
+  ep: 1,
+  scene: {
+    sky: "sea",
+    motif: "ark"
+  },
+  desc: "Rain is coming, and God asks Noah to build the biggest boat anyone has ever seen. Zara counts the animals two by two and waits for the rainbow promise.",
+  talk: ["Why do you think Noah kept building when people laughed?", "What promise does the rainbow remind us of?"]
+}, {
+  slug: "daniel-and-the-lions",
+  world: "stories",
+  title: "Daniel and the Lions",
+  ref: "Daniel 6",
+  mins: 7,
+  age: "4–10",
+  family: true,
+  series: "heroes",
+  ep: 2,
+  scene: {
+    sky: "dusk",
+    motif: "lion"
+  },
+  desc: "Daniel keeps praying even when the king's law says stop. A night in the lions' den shows that God is with him.",
+  talk: ["When is it hard to do the right thing?", "Who can you pray for tonight?"]
+}, {
+  slug: "brave-little-david",
+  world: "stories",
+  title: "Brave Little David",
+  ref: "1 Samuel 17",
+  mins: 9,
+  age: "4–10",
+  series: "heroes",
+  ep: 3,
+  scene: {
+    sky: "day",
+    motif: "stone"
+  },
+  desc: "A shepherd boy with five smooth stones faces a giant, trusting God more than his size.",
+  talk: ["What feels like a 'giant' in your life?", "How did David get brave?"]
+}, {
+  slug: "jonah-and-the-big-fish",
+  world: "stories",
+  title: "Jonah and the Big Fish",
+  ref: "Jonah 1–2",
+  mins: 7,
+  age: "3–8",
+  series: "heroes",
+  ep: 4,
+  scene: {
+    sky: "sea",
+    motif: "whale"
+  },
+  desc: "Jonah tries to run from God's plan and ends up inside a very big fish. God gives him a second chance.",
+  talk: ["Have you ever wanted to run away from a hard job?", "What does a second chance feel like?"]
+}, {
+  slug: "walls-of-jericho",
+  world: "stories",
+  title: "The Walls of Jericho",
+  ref: "Joshua 6",
+  mins: 6,
+  age: "4–10",
+  scene: {
+    sky: "warm",
+    motif: "wall"
+  },
+  desc: "Seven days of marching, one big shout, and a city wall comes tumbling down.",
+  talk: ["Why did God ask the people to march quietly first?", "Can you remember a time you had to be patient?"]
+}, {
+  slug: "jesus-feeds-five-thousand",
+  world: "stories",
+  title: "A Lunch That Fed Thousands",
+  ref: "John 6:1–14",
+  mins: 6,
+  age: "3–8",
+  family: true,
+  scene: {
+    sky: "day",
+    motif: "loaves"
+  },
+  desc: "A boy shares five loaves and two fish, and Jesus turns one small lunch into a feast for a hillside of people.",
+  talk: ["What small thing could you share this week?", "How many baskets were left over?"]
+}, {
+  slug: "the-first-christmas",
+  world: "stories",
+  title: "The Very First Christmas",
+  ref: "Luke 2:1–20",
+  mins: 9,
+  age: "3–10",
+  family: true,
+  scene: {
+    sky: "night",
+    motif: "star"
+  },
+  desc: "Shepherds, angels and a bright star lead to a baby in a manger. Zara tells the story the way her grandma told it to her.",
+  talk: ["Who in our family tells the Christmas story best?", "Why did the angels bring the news to shepherds?"]
+}, {
+  slug: "the-lost-little-lamb",
+  world: "bedtime",
+  title: "The Lost Little Lamb",
+  ref: "Luke 15:3–7",
+  mins: 5,
+  age: "3–6",
+  family: true,
+  scene: {
+    sky: "night",
+    motif: "lamb"
+  },
+  desc: "A gentle bedtime story about a shepherd who searches all night for one little lamb, because every one matters.",
+  talk: ["How does the shepherd feel when he finds the lamb?", "Who looks after you when you feel lost?"]
+}, {
+  slug: "god-made-the-stars",
+  world: "bedtime",
+  title: "God Counts the Stars",
+  ref: "Genesis 15:5",
+  mins: 4,
+  age: "3–6",
+  scene: {
+    sky: "night",
+    motif: "moon"
+  },
+  desc: "Abraham looks up at a sky too full of stars to count. A slow, quiet story to end the day.",
+  talk: ["How many stars do you think there are?", "What promise did God make to Abraham?"]
+}, {
+  slug: "goodnight-prayer-with-zara",
+  world: "bedtime",
+  title: "Goodnight Prayer with Zara",
+  ref: "Psalm 4:8",
+  mins: 3,
+  age: "3–8",
+  scene: {
+    sky: "night",
+    motif: "lamp"
+  },
+  desc: "Zara says thank you for the day, prays for family, and settles down to sleep in peace.",
+  talk: ["What are you thankful for today?", "Who would you like to pray for?"]
+}, {
+  slug: "be-kind",
+  world: "verses",
+  title: "Be Kind to One Another",
+  ref: "Ephesians 4:32",
+  mins: 3,
+  age: "3–8",
+  verse: "Be ye kind one to another, tenderhearted, forgiving one another.",
+  scene: {
+    sky: "warm",
+    motif: "heart"
+  },
+  desc: "Learn Ephesians 4:32 with actions and a catchy rhythm.",
+  talk: ["What is one kind thing you can do tomorrow?"]
+}, {
+  slug: "be-strong",
+  world: "verses",
+  title: "Be Strong and Courageous",
+  ref: "Joshua 1:9",
+  mins: 3,
+  age: "4–10",
+  verse: "Be strong and of a good courage; be not afraid.",
+  scene: {
+    sky: "day",
+    motif: "sun"
+  },
+  desc: "A memory verse for brave days, first days of school and big new things.",
+  talk: ["When do you need to be brave?"]
+}, {
+  slug: "lamp-unto-my-feet",
+  world: "verses",
+  title: "A Lamp unto My Feet",
+  ref: "Psalm 119:105",
+  mins: 2,
+  age: "3–8",
+  verse: "Thy word is a lamp unto my feet, and a light unto my path.",
+  scene: {
+    sky: "dusk",
+    motif: "lamp"
+  },
+  desc: "Zara walks a dark path with a little lamp to show how God's Word guides us.",
+  talk: ["How does a lamp help in the dark?"]
+}, {
+  slug: "morning-praise",
+  world: "worship",
+  title: "Morning Praise with Zara",
+  ref: "Psalm 118:24",
+  mins: 4,
+  age: "3–8",
+  family: true,
+  scene: {
+    sky: "dawn",
+    motif: "notes"
+  },
+  desc: "Wake up, stretch and sing. A bright start to the school-run morning.",
+  talk: ["What made you happy this morning?"]
+}, {
+  slug: "creation-song",
+  world: "worship",
+  title: "The Creation Song",
+  ref: "Genesis 1",
+  mins: 5,
+  age: "3–8",
+  scene: {
+    sky: "day",
+    motif: "sun"
+  },
+  desc: "Seven days, seven verses. Sing through everything God made, from light to animals to people.",
+  talk: ["What is your favourite thing God made?"]
+}, {
+  slug: "i-am-loved",
+  world: "prayers",
+  title: "I Am Loved by God",
+  ref: "1 John 4:19",
+  mins: 3,
+  age: "3–10",
+  scene: {
+    sky: "dawn",
+    motif: "heart"
+  },
+  desc: "Short affirmations for children: I am loved, I am made on purpose, I am never alone.",
+  talk: ["Which one of these is your favourite to say?"]
+}, {
+  slug: "thank-you-for-food",
+  world: "prayers",
+  title: "Thank You for Our Food",
+  ref: "1 Timothy 4:4",
+  mins: 2,
+  age: "3–6",
+  scene: {
+    sky: "warm",
+    motif: "loaves"
+  },
+  desc: "A simple mealtime prayer to learn together at the table.",
+  talk: ["Who helped make our food today?"]
+}];
+const SERIES = {
+  heroes: {
+    name: "Heroes of Faith",
+    note: "Season 1 · watch in order"
+  }
+};
 
 /* Rows in the order they appear on the home screen. */
-const ROWS = [
-  { id: "continue", name: "Continue watching", pick: () => continueList() },
-  { id: "new", name: "New on LittleRoots", note: "From the YouTube channel", pick: () => CATALOG.filter(v => v.yt) },
-  { id: "family", name: "Family Night", note: "Stories for every age at the table", pick: () => CATALOG.filter(v => v.family) },
-  { id: "heroes", name: "Heroes of Faith", note: "Series · Season 1", pick: () => CATALOG.filter(v => v.series === "heroes").sort((a, b) => a.ep - b.ep) },
-  { id: "stories", name: "Bible Adventures", pick: () => CATALOG.filter(v => v.world === "stories") },
-  { id: "bedtime", name: "Bedtime Bible", note: "Calm stories for winding down", pick: () => CATALOG.filter(v => v.world === "bedtime") },
-  { id: "verses", name: "Memory Verses", note: "King James Version", pick: () => CATALOG.filter(v => v.world === "verses"), style: "verse" },
-  { id: "worship", name: "Worship & Songs", pick: () => CATALOG.filter(v => v.world === "worship") },
-  { id: "prayers", name: "Prayers & Affirmations", pick: () => CATALOG.filter(v => v.world === "prayers") },
-];
-
-const NAV = [
-  { label: "Home", target: "hero" },
-  { label: "Bible Adventures", target: "stories" },
-  { label: "Bedtime", target: "bedtime" },
-  { label: "Memory Verses", target: "verses" },
-  { label: "Worship", target: "worship" },
-  { label: "Grown-ups", target: "parents", cls: "parents" },
-];
+const ROWS = [{
+  id: "continue",
+  name: "Continue watching",
+  pick: () => continueList()
+}, {
+  id: "new",
+  name: "New on LittleRoots",
+  note: "From the YouTube channel",
+  pick: () => CATALOG.filter(v => v.yt)
+}, {
+  id: "family",
+  name: "Family Night",
+  note: "Stories for every age at the table",
+  pick: () => CATALOG.filter(v => v.family)
+}, {
+  id: "heroes",
+  name: "Heroes of Faith",
+  note: "Series · Season 1",
+  pick: () => CATALOG.filter(v => v.series === "heroes").sort((a, b) => a.ep - b.ep)
+}, {
+  id: "stories",
+  name: "Bible Adventures",
+  pick: () => CATALOG.filter(v => v.world === "stories")
+}, {
+  id: "bedtime",
+  name: "Bedtime Bible",
+  note: "Calm stories for winding down",
+  pick: () => CATALOG.filter(v => v.world === "bedtime")
+}, {
+  id: "verses",
+  name: "Memory Verses",
+  note: "King James Version",
+  pick: () => CATALOG.filter(v => v.world === "verses"),
+  style: "verse"
+}, {
+  id: "worship",
+  name: "Worship & Songs",
+  pick: () => CATALOG.filter(v => v.world === "worship")
+}, {
+  id: "prayers",
+  name: "Prayers & Affirmations",
+  pick: () => CATALOG.filter(v => v.world === "prayers")
+}];
+const NAV = [{
+  label: "Home",
+  target: "hero"
+}, {
+  label: "Bible Adventures",
+  target: "stories"
+}, {
+  label: "Bedtime",
+  target: "bedtime"
+}, {
+  label: "Memory Verses",
+  target: "verses"
+}, {
+  label: "Worship",
+  target: "worship"
+}, {
+  label: "Grown-ups",
+  target: "parents",
+  cls: "parents"
+}];
 
 /* ---------- small helpers ---------- */
-const LOGO_ORDER = { 2: 0, 1: 1, 9: 2, 8: 3, 3: 4, 10: 5, 0: 6, 5: 7, 6: 8, 4: 9, 7: 10 }; // path index -> reading order
+const LOGO_ORDER = {
+  2: 0,
+  1: 1,
+  9: 2,
+  8: 3,
+  3: 4,
+  10: 5,
+  0: 6,
+  5: 7,
+  6: 8,
+  4: 9,
+  7: 10
+}; // path index -> reading order
 function animLogo() {
   const svg = document.querySelector(".top .logo").cloneNode(true);
-  svg.setAttribute("class", "logo-anim"); svg.setAttribute("aria-hidden", "true"); svg.removeAttribute("role");
-  [...svg.querySelectorAll("path")].forEach((p, i) => p.style.setProperty("--i", LOGO_ORDER[i] ?? i));
+  svg.setAttribute("class", "logo-anim");
+  svg.setAttribute("aria-hidden", "true");
+  svg.removeAttribute("role");
+  [...svg.querySelectorAll("path")].forEach((p, i) => {
+    var _LOGO_ORDER$i;
+    return p.style.setProperty("--i", (_LOGO_ORDER$i = LOGO_ORDER[i]) !== null && _LOGO_ORDER$i !== void 0 ? _LOGO_ORDER$i : i);
+  });
   return svg.outerHTML;
 }
 const $ = s => document.querySelector(s);
 const bySlug = s => CATALOG.find(v => v.slug === s);
 const store = {
-  get(k, d) { try { const v = localStorage.getItem("lr-" + k); return v ? JSON.parse(v) : d; } catch { return d; } },
-  set(k, v) { try { localStorage.setItem("lr-" + k, JSON.stringify(v)); } catch {} },
+  get(k, d) {
+    try {
+      const v = localStorage.getItem("lr-" + k);
+      return v ? JSON.parse(v) : d;
+    } catch (_unused) {
+      return d;
+    }
+  },
+  set(k, v) {
+    try {
+      localStorage.setItem("lr-" + k, JSON.stringify(v));
+    } catch (_unused2) {}
+  }
 };
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;"
+})[c]);
 const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 const info = v => [v.ref, v.mins ? v.mins + " min" : v.kind].filter(Boolean);
-function toast(text) { const t = $("#toast"); t.textContent = text; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2600); }
+function toast(text) {
+  const t = $("#toast");
+  t.textContent = text;
+  t.hidden = false;
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => t.hidden = true, 2600);
+}
 
 /* Watch progress (seconds per slug). Sample progress shows until real viewing replaces it. */
-let progress = store.get("progress", { "daniel-and-the-lions": 190, "god-made-the-stars": 70 });
-let settings = store.get("settings", { limit: 0 });
+let progress = store.get("progress", {
+  "daniel-and-the-lions": 190,
+  "god-made-the-stars": 70
+});
+let settings = store.get("settings", {
+  limit: 0
+});
 let durs = store.get("dur", {});
-const totalOf = v => v.mins ? v.mins * 60 : (durs[v.slug] || 0);
+const totalOf = v => v.mins ? v.mins * 60 : durs[v.slug] || 0;
 let watchedToday = store.get("watched-" + new Date().toDateString(), 0);
-function continueList() { return Object.keys(progress).reverse().map(bySlug).filter(v => v && totalOf(v) && progress[v.slug] > 5 && progress[v.slug] < totalOf(v) - 5); }
+function continueList() {
+  return Object.keys(progress).reverse().map(bySlug).filter(v => v && totalOf(v) && progress[v.slug] > 5 && progress[v.slug] < totalOf(v) - 5);
+}
 
 /* ---------- storybook illustrations (placeholders until real thumbnails) ---------- */
 const SKIES = {
-  day:   ["#8CCFD0", "#F4E6BC", "#2F6B4F", "#3E8060"],
-  sea:   ["#9AD3D3", "#F6E8C2", "#2C6F86", "#3E8BA0"],
-  dusk:  ["#2E4F70", "#E9A96A", "#1F4A3E", "#2A5E4D"],
+  day: ["#8CCFD0", "#F4E6BC", "#2F6B4F", "#3E8060"],
+  sea: ["#9AD3D3", "#F6E8C2", "#2C6F86", "#3E8BA0"],
+  dusk: ["#2E4F70", "#E9A96A", "#1F4A3E", "#2A5E4D"],
   night: ["#0B1E33", "#28466A", "#123A30", "#1A4A3D"],
-  warm:  ["#E7B46C", "#F8E3B3", "#7A5A2E", "#8E6A38"],
-  dawn:  ["#F0B7A0", "#F7E5C4", "#356E57", "#4A8468"],
+  warm: ["#E7B46C", "#F8E3B3", "#7A5A2E", "#8E6A38"],
+  dawn: ["#F0B7A0", "#F7E5C4", "#356E57", "#4A8468"]
 };
-function rng(seed) { let s = 0; for (const c of seed) s = (s * 31 + c.charCodeAt(0)) >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
-
+function rng(seed) {
+  let s = 0;
+  for (const c of seed) s = s * 31 + c.charCodeAt(0) >>> 0;
+  return () => (s = s * 1664525 + 1013904223 >>> 0) / 4294967296;
+}
 function paint(canvas, scene, seed, mx) {
   const r = Math.min(window.devicePixelRatio || 1, 2);
-  const w = canvas.clientWidth || 320, h = canvas.clientHeight || 180;
-  canvas.width = Math.round(w * r); canvas.height = Math.round(h * r);
-  const x = canvas.getContext("2d"); x.scale(r, r);
+  const w = canvas.clientWidth || 320,
+    h = canvas.clientHeight || 180;
+  canvas.width = Math.round(w * r);
+  canvas.height = Math.round(h * r);
+  const x = canvas.getContext("2d");
+  x.scale(r, r);
   const [s1, s2, g1, g2] = SKIES[scene.sky] || SKIES.day;
   const rand = rng(seed || scene.motif);
   const u = Math.min(w, h * 1.8) / 100; // unit scale
-  const sky = x.createLinearGradient(0, 0, 0, h); sky.addColorStop(0, s1); sky.addColorStop(1, s2);
-  x.fillStyle = sky; x.fillRect(0, 0, w, h);
+  const sky = x.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, s1);
+  sky.addColorStop(1, s2);
+  x.fillStyle = sky;
+  x.fillRect(0, 0, w, h);
   const night = scene.sky === "night" || scene.sky === "dusk";
-  if (night) { x.fillStyle = "#FFF6DD"; for (let i = 0; i < 60; i++) { x.globalAlpha = .3 + rand() * .7; x.beginPath(); x.arc(rand() * w, rand() * h * .6, rand() * 1.4 + .3, 0, 7); x.fill(); } x.globalAlpha = 1; }
+  if (night) {
+    x.fillStyle = "#FFF6DD";
+    for (let i = 0; i < 60; i++) {
+      x.globalAlpha = .3 + rand() * .7;
+      x.beginPath();
+      x.arc(rand() * w, rand() * h * .6, rand() * 1.4 + .3, 0, 7);
+      x.fill();
+    }
+    x.globalAlpha = 1;
+  }
   // sun or moon
-  const cx = w * (.72 + rand() * .16), cy = h * (.2 + rand() * .1);
-  x.fillStyle = night ? "#F6EBC8" : "#FFE7A6"; x.beginPath(); x.arc(cx, cy, 7 * u, 0, 7); x.fill();
-  if (night) { x.fillStyle = s1; x.beginPath(); x.arc(cx + 3 * u, cy - 2 * u, 6.2 * u, 0, 7); x.fill(); }
+  const cx = w * (.72 + rand() * .16),
+    cy = h * (.2 + rand() * .1);
+  x.fillStyle = night ? "#F6EBC8" : "#FFE7A6";
+  x.beginPath();
+  x.arc(cx, cy, 7 * u, 0, 7);
+  x.fill();
+  if (night) {
+    x.fillStyle = s1;
+    x.beginPath();
+    x.arc(cx + 3 * u, cy - 2 * u, 6.2 * u, 0, 7);
+    x.fill();
+  }
   // ground: sea waves or hills
   if (scene.sky === "sea") {
-    for (let k = 0; k < 3; k++) { x.fillStyle = k ? g2 : g1; x.globalAlpha = 1 - k * .25; x.beginPath(); x.moveTo(0, h);
-      const base = h * (.72 + k * .09); for (let i = 0; i <= w; i += 8) x.lineTo(i, base + Math.sin(i / (14 * u) + k * 2) * 2.5 * u); x.lineTo(w, h); x.fill(); }
+    for (let k = 0; k < 3; k++) {
+      x.fillStyle = k ? g2 : g1;
+      x.globalAlpha = 1 - k * .25;
+      x.beginPath();
+      x.moveTo(0, h);
+      const base = h * (.72 + k * .09);
+      for (let i = 0; i <= w; i += 8) x.lineTo(i, base + Math.sin(i / (14 * u) + k * 2) * 2.5 * u);
+      x.lineTo(w, h);
+      x.fill();
+    }
     x.globalAlpha = 1;
   } else {
-    hill(x, w, h, h * .7, g2, rand); hill(x, w, h, h * .8, g1, rand);
+    hill(x, w, h, h * .7, g2, rand);
+    hill(x, w, h, h * .8, g1, rand);
   }
   motif(x, scene.motif, mx ? w * mx : w * .38 + rand() * w * .1, h * .62, u, night);
 }
 function hill(x, w, h, top, col, rand) {
-  x.fillStyle = col; x.beginPath(); x.moveTo(0, h); x.lineTo(0, top + rand() * 20);
-  x.bezierCurveTo(w * .3, top - 30 * rand(), w * .6, top + 25 * rand(), w, top - 10 + rand() * 20); x.lineTo(w, h); x.fill();
+  x.fillStyle = col;
+  x.beginPath();
+  x.moveTo(0, h);
+  x.lineTo(0, top + rand() * 20);
+  x.bezierCurveTo(w * .3, top - 30 * rand(), w * .6, top + 25 * rand(), w, top - 10 + rand() * 20);
+  x.lineTo(w, h);
+  x.fill();
 }
 function motif(x, m, cx, cy, u, night) {
-  const P = (f, ...a) => { x.fillStyle = f; x.beginPath(); a.forEach(([px, py], i) => i ? x.lineTo(cx + px * u, cy + py * u) : x.moveTo(cx + px * u, cy + py * u)); x.closePath(); x.fill(); };
-  const C = (f, px, py, rad) => { x.fillStyle = f; x.beginPath(); x.arc(cx + px * u, cy + py * u, rad * u, 0, 7); x.fill(); };
-  const E = (f, px, py, rx, ry, rot = 0) => { x.fillStyle = f; x.beginPath(); x.ellipse(cx + px * u, cy + py * u, rx * u, ry * u, rot, 0, 7); x.fill(); };
+  const P = (f, ...a) => {
+    x.fillStyle = f;
+    x.beginPath();
+    a.forEach(([px, py], i) => i ? x.lineTo(cx + px * u, cy + py * u) : x.moveTo(cx + px * u, cy + py * u));
+    x.closePath();
+    x.fill();
+  };
+  const C = (f, px, py, rad) => {
+    x.fillStyle = f;
+    x.beginPath();
+    x.arc(cx + px * u, cy + py * u, rad * u, 0, 7);
+    x.fill();
+  };
+  const E = (f, px, py, rx, ry, rot = 0) => {
+    x.fillStyle = f;
+    x.beginPath();
+    x.ellipse(cx + px * u, cy + py * u, rx * u, ry * u, rot, 0, 7);
+    x.fill();
+  };
   switch (m) {
     case "ark":
-      ["#E06C5A", "#E9A84A", "#E8D35A", "#6DB57A", "#5B93C9"].forEach((c, i) => { x.strokeStyle = c; x.lineWidth = 2.4 * u; x.beginPath(); x.arc(cx + 30 * u, cy + 4 * u, (40 - i * 2.4) * u, Math.PI, 0); x.stroke(); });
-      P("#7A4B2A", [-24, 0], [24, 0], [18, 10], [-18, 10]); P("#9B6436", [-12, -11], [12, -11], [12, 0], [-12, 0]); P("#5C3820", [-15, -11], [0, -18], [15, -11]);
-      C("#F3EBD8", -5, -6, 1.6); C("#F3EBD8", 5, -6, 1.6); break;
+      ["#E06C5A", "#E9A84A", "#E8D35A", "#6DB57A", "#5B93C9"].forEach((c, i) => {
+        x.strokeStyle = c;
+        x.lineWidth = 2.4 * u;
+        x.beginPath();
+        x.arc(cx + 30 * u, cy + 4 * u, (40 - i * 2.4) * u, Math.PI, 0);
+        x.stroke();
+      });
+      P("#7A4B2A", [-24, 0], [24, 0], [18, 10], [-18, 10]);
+      P("#9B6436", [-12, -11], [12, -11], [12, 0], [-12, 0]);
+      P("#5C3820", [-15, -11], [0, -18], [15, -11]);
+      C("#F3EBD8", -5, -6, 1.6);
+      C("#F3EBD8", 5, -6, 1.6);
+      break;
     case "lion":
       for (let a = 0; a < 16; a++) C("#B86B2B", Math.cos(a / 16 * 6.28) * 13, Math.sin(a / 16 * 6.28) * 13 - 4, 6);
-      C("#E8B25C", 0, -4, 12); C("#2A1C12", -4.5, -7, 1.5); C("#2A1C12", 4.5, -7, 1.5); P("#6B3B22", [-2.5, -2], [2.5, -2], [0, 1]);
-      C("#E8B25C", -10, -15, 3.2); C("#E8B25C", 10, -15, 3.2); break;
+      C("#E8B25C", 0, -4, 12);
+      C("#2A1C12", -4.5, -7, 1.5);
+      C("#2A1C12", 4.5, -7, 1.5);
+      P("#6B3B22", [-2.5, -2], [2.5, -2], [0, 1]);
+      C("#E8B25C", -10, -15, 3.2);
+      C("#E8B25C", 10, -15, 3.2);
+      break;
     case "whale":
-      E("#3F6F86", 0, 0, 26, 12); P("#3F6F86", [22, -2], [36, -12], [34, 2], [36, 12]); E("#CFE3E6", -4, 6, 16, 5);
-      C("#0E2230", -16, -3, 1.6); x.strokeStyle = "#E6F4F6"; x.lineWidth = 1.6 * u; x.beginPath(); x.moveTo(cx - 6 * u, cy - 12 * u); x.quadraticCurveTo(cx - 10 * u, cy - 24 * u, cx - 16 * u, cy - 26 * u); x.moveTo(cx - 6 * u, cy - 12 * u); x.quadraticCurveTo(cx - 2 * u, cy - 24 * u, cx + 4 * u, cy - 26 * u); x.stroke(); break;
+      E("#3F6F86", 0, 0, 26, 12);
+      P("#3F6F86", [22, -2], [36, -12], [34, 2], [36, 12]);
+      E("#CFE3E6", -4, 6, 16, 5);
+      C("#0E2230", -16, -3, 1.6);
+      x.strokeStyle = "#E6F4F6";
+      x.lineWidth = 1.6 * u;
+      x.beginPath();
+      x.moveTo(cx - 6 * u, cy - 12 * u);
+      x.quadraticCurveTo(cx - 10 * u, cy - 24 * u, cx - 16 * u, cy - 26 * u);
+      x.moveTo(cx - 6 * u, cy - 12 * u);
+      x.quadraticCurveTo(cx - 2 * u, cy - 24 * u, cx + 4 * u, cy - 26 * u);
+      x.stroke();
+      break;
     case "stone":
-      E("#3B2A1E", 22, 6, 6, 26); C("#3B2A1E", 22, -24, 6); [[-14, 6], [-8, 7], [-2, 6.5], [-11, 2.5], [-5, 3]].forEach(([a, b]) => E("#C9C2B3", a, b, 3.2, 2.4)); break;
+      E("#3B2A1E", 22, 6, 6, 26);
+      C("#3B2A1E", 22, -24, 6);
+      [[-14, 6], [-8, 7], [-2, 6.5], [-11, 2.5], [-5, 3]].forEach(([a, b]) => E("#C9C2B3", a, b, 3.2, 2.4));
+      break;
     case "wall":
-      for (let row = 0; row < 4; row++) for (let col = 0; col < 7; col++) { x.fillStyle = (row + col) % 2 ? "#C98E52" : "#B57A43"; x.fillRect(cx + (-28 + col * 8 + (row % 2) * 4) * u, cy + (-20 + row * 6) * u, 7.4 * u, 5.4 * u); }
-      P("#E6C185", [-6, -20], [-6, -30], [2, -26]); break;
+      for (let row = 0; row < 4; row++) for (let col = 0; col < 7; col++) {
+        x.fillStyle = (row + col) % 2 ? "#C98E52" : "#B57A43";
+        x.fillRect(cx + (-28 + col * 8 + row % 2 * 4) * u, cy + (-20 + row * 6) * u, 7.4 * u, 5.4 * u);
+      }
+      P("#E6C185", [-6, -20], [-6, -30], [2, -26]);
+      break;
     case "loaves":
-      [[-14, 0], [-4, -3], [6, 0], [-9, -8], [1, -10]].forEach(([a, b]) => E("#D8A45C", a, b, 6, 4)); E("#7FA7B8", 18, -2, 7, 3); P("#7FA7B8", [24, -2], [28, -5], [28, 1]); E("#7FA7B8", 16, 5, 7, 3); P("#7FA7B8", [22, 5], [26, 2], [26, 8]); break;
+      [[-14, 0], [-4, -3], [6, 0], [-9, -8], [1, -10]].forEach(([a, b]) => E("#D8A45C", a, b, 6, 4));
+      E("#7FA7B8", 18, -2, 7, 3);
+      P("#7FA7B8", [24, -2], [28, -5], [28, 1]);
+      E("#7FA7B8", 16, 5, 7, 3);
+      P("#7FA7B8", [22, 5], [26, 2], [26, 8]);
+      break;
     case "star":
-      P("#5B3A22", [-20, 10], [20, 10], [20, -6], [0, -18], [-20, -6]); P("#2B1A10", [-8, 10], [8, 10], [8, -2], [-8, -2]); E("#F3D28A", 0, 5, 5, 2.5);
-      for (let i = 0; i < 4; i++) { x.save(); x.translate(cx + 2 * u, cy - 38 * u); x.rotate(i * Math.PI / 4); x.fillStyle = "#FFF1BF"; x.fillRect(-0.7 * u, -9 * u, 1.4 * u, 18 * u); x.restore(); } C("#FFF6D6", 2, -38, 3); break;
+      P("#5B3A22", [-20, 10], [20, 10], [20, -6], [0, -18], [-20, -6]);
+      P("#2B1A10", [-8, 10], [8, 10], [8, -2], [-8, -2]);
+      E("#F3D28A", 0, 5, 5, 2.5);
+      for (let i = 0; i < 4; i++) {
+        x.save();
+        x.translate(cx + 2 * u, cy - 38 * u);
+        x.rotate(i * Math.PI / 4);
+        x.fillStyle = "#FFF1BF";
+        x.fillRect(-0.7 * u, -9 * u, 1.4 * u, 18 * u);
+        x.restore();
+      }
+      C("#FFF6D6", 2, -38, 3);
+      break;
     case "lamb":
-      [[-8, -2], [-2, -5], [4, -3], [8, 1], [-4, 3], [3, 4], [-9, 4]].forEach(([a, b]) => C("#F2EEE4", a, b, 5.5)); E("#3A3330", 12, -6, 4, 5, -.4); C("#3A3330", 9.5, -10, 1.8); x.fillStyle = "#3A3330"; x.fillRect(cx - 7 * u, cy + 7 * u, 2 * u, 6 * u); x.fillRect(cx + 4 * u, cy + 7 * u, 2 * u, 6 * u); break;
+      [[-8, -2], [-2, -5], [4, -3], [8, 1], [-4, 3], [3, 4], [-9, 4]].forEach(([a, b]) => C("#F2EEE4", a, b, 5.5));
+      E("#3A3330", 12, -6, 4, 5, -.4);
+      C("#3A3330", 9.5, -10, 1.8);
+      x.fillStyle = "#3A3330";
+      x.fillRect(cx - 7 * u, cy + 7 * u, 2 * u, 6 * u);
+      x.fillRect(cx + 4 * u, cy + 7 * u, 2 * u, 6 * u);
+      break;
     case "moon":
-      E("#F2EEE4", 0, 0, 18, 7); C("#F2EEE4", -8, -4, 7); C("#F2EEE4", 4, -6, 9); C("#F2EEE4", 13, -2, 6);
-      x.strokeStyle = "#B9C7D8"; x.lineWidth = 1 * u; x.font = `700 ${7 * u}px Nunito, sans-serif`; x.fillStyle = "#DCE6F2"; x.fillText("z", cx + 18 * u, cy - 14 * u); x.font = `700 ${5 * u}px Nunito, sans-serif`; x.fillText("z", cx + 25 * u, cy - 21 * u); break;
+      E("#F2EEE4", 0, 0, 18, 7);
+      C("#F2EEE4", -8, -4, 7);
+      C("#F2EEE4", 4, -6, 9);
+      C("#F2EEE4", 13, -2, 6);
+      x.strokeStyle = "#B9C7D8";
+      x.lineWidth = 1 * u;
+      x.font = `700 ${7 * u}px Nunito, sans-serif`;
+      x.fillStyle = "#DCE6F2";
+      x.fillText("z", cx + 18 * u, cy - 14 * u);
+      x.font = `700 ${5 * u}px Nunito, sans-serif`;
+      x.fillText("z", cx + 25 * u, cy - 21 * u);
+      break;
     case "lamp":
-      x.fillStyle = "rgba(255,214,120,.25)"; x.beginPath(); x.arc(cx, cy - 8 * u, 22 * u, 0, 7); x.fill();
-      E("#B07A3A", 0, 0, 12, 5); P("#B07A3A", [10, -2], [18, -5], [16, 1]); P("#FFD27A", [-2, -4], [2, -4], [0, -14]); C("#FFE9B0", 0, -7, 2); break;
+      x.fillStyle = "rgba(255,214,120,.25)";
+      x.beginPath();
+      x.arc(cx, cy - 8 * u, 22 * u, 0, 7);
+      x.fill();
+      E("#B07A3A", 0, 0, 12, 5);
+      P("#B07A3A", [10, -2], [18, -5], [16, 1]);
+      P("#FFD27A", [-2, -4], [2, -4], [0, -14]);
+      C("#FFE9B0", 0, -7, 2);
+      break;
     case "heart":
-      x.fillStyle = "#E36F6A"; x.beginPath(); x.moveTo(cx, cy + 10 * u); x.bezierCurveTo(cx - 26 * u, cy - 6 * u, cx - 10 * u, cy - 24 * u, cx, cy - 12 * u); x.bezierCurveTo(cx + 10 * u, cy - 24 * u, cx + 26 * u, cy - 6 * u, cx, cy + 10 * u); x.fill(); C("#F6A9A0", -6, -10, 2.5); break;
+      x.fillStyle = "#E36F6A";
+      x.beginPath();
+      x.moveTo(cx, cy + 10 * u);
+      x.bezierCurveTo(cx - 26 * u, cy - 6 * u, cx - 10 * u, cy - 24 * u, cx, cy - 12 * u);
+      x.bezierCurveTo(cx + 10 * u, cy - 24 * u, cx + 26 * u, cy - 6 * u, cx, cy + 10 * u);
+      x.fill();
+      C("#F6A9A0", -6, -10, 2.5);
+      break;
     case "sun":
-      for (let i = 0; i < 12; i++) { const a = i / 12 * 6.283; P("#F2B544", [Math.cos(a) * 12, Math.sin(a) * 12 - 10], [Math.cos(a + .14) * 20, Math.sin(a + .14) * 20 - 10], [Math.cos(a - .14) * 20, Math.sin(a - .14) * 20 - 10]); }
-      C("#FFD36E", 0, -10, 11); C("#7A4B2A", -3.5, -12, 1.2); C("#7A4B2A", 3.5, -12, 1.2); x.strokeStyle = "#7A4B2A"; x.lineWidth = 1 * u; x.beginPath(); x.arc(cx, cy - 9 * u, 4 * u, .3, 2.84); x.stroke(); break;
+      for (let i = 0; i < 12; i++) {
+        const a = i / 12 * 6.283;
+        P("#F2B544", [Math.cos(a) * 12, Math.sin(a) * 12 - 10], [Math.cos(a + .14) * 20, Math.sin(a + .14) * 20 - 10], [Math.cos(a - .14) * 20, Math.sin(a - .14) * 20 - 10]);
+      }
+      C("#FFD36E", 0, -10, 11);
+      C("#7A4B2A", -3.5, -12, 1.2);
+      C("#7A4B2A", 3.5, -12, 1.2);
+      x.strokeStyle = "#7A4B2A";
+      x.lineWidth = 1 * u;
+      x.beginPath();
+      x.arc(cx, cy - 9 * u, 4 * u, .3, 2.84);
+      x.stroke();
+      break;
     case "notes":
-      [[-14, -4, "#F3EBD8"], [2, -14, "#FFE3A0"], [16, -2, "#F3EBD8"]].forEach(([a, b, c]) => { E(c, a, b, 4, 3, -.4); x.fillStyle = c; x.fillRect(cx + (a + 3) * u, cy + (b - 16) * u, 1.4 * u, 16 * u); P(c, [a + 3, b - 16], [a + 10, b - 12], [a + 4.4, b - 12]); }); break;
+      [[-14, -4, "#F3EBD8"], [2, -14, "#FFE3A0"], [16, -2, "#F3EBD8"]].forEach(([a, b, c]) => {
+        E(c, a, b, 4, 3, -.4);
+        x.fillStyle = c;
+        x.fillRect(cx + (a + 3) * u, cy + (b - 16) * u, 1.4 * u, 16 * u);
+        P(c, [a + 3, b - 16], [a + 10, b - 12], [a + 4.4, b - 12]);
+      });
+      break;
     case "dove":
-      E("#FBFAF5", 0, 0, 14, 6, -.15); P("#EDE9DE", [-4, -2], [6, -22], [10, -4]); C("#FBFAF5", -13, -4, 5); P("#E8A84A", [-17, -4], [-22, -3], [-17, -2]); C("#2A2A2A", -14, -5, .9);
-      x.strokeStyle = "#4E7E4A"; x.lineWidth = 1 * u; x.beginPath(); x.moveTo(cx - 18 * u, cy - 3 * u); x.lineTo(cx - 26 * u, cy + 2 * u); x.stroke(); E("#6FA05F", -24, 0, 2.4, 1.2, .5); break;
+      E("#FBFAF5", 0, 0, 14, 6, -.15);
+      P("#EDE9DE", [-4, -2], [6, -22], [10, -4]);
+      C("#FBFAF5", -13, -4, 5);
+      P("#E8A84A", [-17, -4], [-22, -3], [-17, -2]);
+      C("#2A2A2A", -14, -5, .9);
+      x.strokeStyle = "#4E7E4A";
+      x.lineWidth = 1 * u;
+      x.beginPath();
+      x.moveTo(cx - 18 * u, cy - 3 * u);
+      x.lineTo(cx - 26 * u, cy + 2 * u);
+      x.stroke();
+      E("#6FA05F", -24, 0, 2.4, 1.2, .5);
+      break;
   }
 }
 
@@ -491,11 +1023,7 @@ function cardHTML(v, rowId, style) {
   const p = progress[v.slug];
   const pct = p && totalOf(v) ? Math.min(100, p / totalOf(v) * 100) : 0;
   const badge = v.yt && rowId !== "new" ? `<span class="badge new">New</span>` : v.series ? `<span class="badge">Ep ${v.ep}</span>` : v.family && rowId !== "family" ? `<span class="badge">Family</span>` : "";
-  const art = style === "verse"
-    ? `<q>${esc(v.verse)}</q>`
-    : v.yt && EMBED_YOUTUBE ? `<img src="${ytThumb(v.yt)}" alt="" loading="lazy">${badge}`
-    : DEMO || v.yt ? `<canvas data-scene='${JSON.stringify(v.scene)}' data-seed="${v.slug}" aria-hidden="true"></canvas>${badge}`
-           : `<img src="${CONFIG.VIDEO_BASE_URL}/${v.slug}/thumbnail.jpg" alt="" loading="lazy">${badge}`;
+  const art = style === "verse" ? `<q>${esc(v.verse)}</q>` : v.yt && EMBED_YOUTUBE ? `<img src="${ytThumb(v.yt)}" alt="" loading="lazy">${badge}` : DEMO || v.yt ? `<canvas data-scene='${JSON.stringify(v.scene)}' data-seed="${v.slug}" aria-hidden="true"></canvas>${badge}` : `<img src="${CONFIG.VIDEO_BASE_URL}/${v.slug}/thumbnail.jpg" alt="" loading="lazy">${badge}`;
   return `<button class="card fx${style === "verse" ? " verse" : ""}" data-fg="row-${rowId}" data-slug="${v.slug}">
     <span class="thumb">${art}${pct ? `<span class="bar"><i style="width:${pct}%"></i></span>` : ""}</span>
     <b>${esc(style === "verse" ? v.ref : v.title)}</b>
@@ -504,15 +1032,17 @@ function cardHTML(v, rowId, style) {
 }
 function renderRows() {
   $("#rows").innerHTML = ROWS.map(r => {
-    const items = r.pick(); if (!items.length) return "";
+    const items = r.pick();
+    if (!items.length) return "";
     return `<section class="row wrap" id="row-${r.id}" aria-label="${esc(r.name)}">
       <div class="row-head"><h2>${esc(r.name)}</h2>${r.note ? `<small>${esc(r.note)}</small>` : ""}</div>
       <div class="track">${items.map(v => cardHTML(v, r.id, r.style)).join("")}</div></section>`;
   }).join("");
   paintAll($("#rows"));
 }
-function paintAll(root) { root.querySelectorAll("canvas[data-scene]").forEach(c => paint(c, JSON.parse(c.dataset.scene), c.dataset.seed)); }
-
+function paintAll(root) {
+  root.querySelectorAll("canvas[data-scene]").forEach(c => paint(c, JSON.parse(c.dataset.scene), c.dataset.seed));
+}
 function renderStatic() {
   $("#nav").innerHTML = NAV.map((n, i) => `<button class="fx ${n.cls || ""}" data-fg="nav" data-target="${n.target}" aria-current="${i === 0}">${n.label}</button>`).join("");
   $("#worlds").innerHTML = WORLDS.map(w => `<button class="world fx" data-fg="worlds" data-target="${w.id}"><canvas data-scene='${JSON.stringify(w.scene)}' data-seed="${w.id}" aria-hidden="true"></canvas><span>${esc(w.name)}</span></button>`).join("");
@@ -521,7 +1051,16 @@ function renderStatic() {
   $("#heroTitle").textContent = f.title;
   $("#heroDesc").textContent = f.desc;
   $("#heroMeta").innerHTML = `${f.ref ? `<span class="ref">${esc(f.ref)}</span>` : ""}<span>${f.mins ? f.mins + " min" : f.kind}</span><span>Ages ${f.age}</span>${f.series ? `<span>${esc(SERIES[f.series].name)} · Episode ${f.ep}</span>` : ""}${f.family ? "<span>Family Night pick</span>" : ""}`;
-  if (f.yt && EMBED_YOUTUBE) { const im = $("#heroImg"); im.onload = () => { if (im.naturalWidth > 200) im.hidden = false; else im.src = ytThumb(f.yt); }; im.onerror = () => { if (!im.src.includes("hqdefault")) im.src = ytThumb(f.yt); }; im.src = ytThumb(f.yt, true); }
+  if (f.yt && EMBED_YOUTUBE) {
+    const im = $("#heroImg");
+    im.onload = () => {
+      if (im.naturalWidth > 200) im.hidden = false;else im.src = ytThumb(f.yt);
+    };
+    im.onerror = () => {
+      if (!im.src.includes("hqdefault")) im.src = ytThumb(f.yt);
+    };
+    im.src = ytThumb(f.yt, true);
+  }
   paint($("#heroArt"), f.scene, "hero", innerWidth > 760 ? .66 : .5);
   $("#heroPlay").onclick = () => f.yt && !EMBED_YOUTUBE ? openDetail(f.slug) : play(f.slug);
   $("#heroInfo").onclick = () => openDetail(f.slug);
@@ -529,7 +1068,8 @@ function renderStatic() {
 
 /* ---------- detail sheet ---------- */
 function openDetail(slug) {
-  const v = bySlug(slug), d = $("#detail");
+  const v = bySlug(slug),
+    d = $("#detail");
   const eps = v.series ? CATALOG.filter(e => e.series === v.series).sort((a, b) => a.ep - b.ep) : [];
   const resume = totalOf(v) && progress[slug] > 5 && progress[slug] < totalOf(v) - 5;
   d.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(v.title)}">
@@ -552,17 +1092,21 @@ function openDetail(slug) {
   d.querySelectorAll("[data-act]").forEach(b => b.onclick = () => {
     if (b.dataset.act === "close") return closeLayer();
     if (b.dataset.act === "restart") progress[slug] = 0;
-    closeLayer(); play(slug);
+    closeLayer();
+    play(slug);
   });
   d.querySelectorAll(".ep").forEach(b => b.onclick = () => openDetail(b.dataset.slug));
-  d.onclick = e => { if (e.target === d) closeLayer(); };
+  d.onclick = e => {
+    if (e.target === d) closeLayer();
+  };
   focusFirst(d);
 }
 
 /* ---------- player ---------- */
 let P = null; // current playback state
 function play(slug) {
-  const v = bySlug(slug), el = $("#player");
+  const v = bySlug(slug),
+    el = $("#player");
   if (settings.limit && watchedToday >= settings.limit * 60) return showBreak();
   el.className = "player";
   if (v.yt) return playYouTube(v, el);
@@ -581,25 +1125,67 @@ function play(slug) {
       ${DEMO ? `<span class="p-note">Demo playback. Set VIDEO_BASE_URL to your R2 address and this screen streams ${esc(v.slug)}/master.m3u8.</span>` : ""}
     </div>`;
   el.hidden = false;
-  P = { slug, total, t: start, paused: false, video: null, hls: null, tick: null, idle: null };
+  P = {
+    slug,
+    total,
+    t: start,
+    paused: false,
+    video: null,
+    hls: null,
+    tick: null,
+    idle: null
+  };
   if (DEMO) {
     paint(el.querySelector("canvas"), v.scene, slug + "-play", .5);
-    P.tick = setInterval(() => { if (!P.paused) { P.t = Math.min(P.total, P.t + 1); watchedToday++; } updatePlayer(); if (P.t >= P.total) endPlayback(true); }, 1000);
+    P.tick = setInterval(() => {
+      if (!P.paused) {
+        P.t = Math.min(P.total, P.t + 1);
+        watchedToday++;
+      }
+      updatePlayer();
+      if (P.t >= P.total) endPlayback(true);
+    }, 1000);
   } else {
-    const video = el.querySelector("video"); P.video = video;
+    const video = el.querySelector("video");
+    P.video = video;
     const url = `${CONFIG.VIDEO_BASE_URL}/${slug}/master.m3u8`;
-    if (window.Hls && Hls.isSupported()) { P.hls = new Hls({ capLevelToPlayerSize: true, startPosition: start }); P.hls.loadSource(url); P.hls.attachMedia(video); }
-    else { video.src = url; video.addEventListener("loadedmetadata", () => { video.currentTime = start; }, { once: true }); } // LG webOS, VIDAA and iOS play HLS natively
-    video.addEventListener("loadedmetadata", () => { P.total = video.duration || P.total; });
-    video.addEventListener("timeupdate", () => { P.t = video.currentTime; updatePlayer(); });
+    if (window.Hls && Hls.isSupported()) {
+      P.hls = new Hls({
+        capLevelToPlayerSize: true,
+        startPosition: start
+      });
+      P.hls.loadSource(url);
+      P.hls.attachMedia(video);
+    } else {
+      video.src = url;
+      video.addEventListener("loadedmetadata", () => {
+        video.currentTime = start;
+      }, {
+        once: true
+      });
+    } // LG webOS, VIDAA and iOS play HLS natively
+    video.addEventListener("loadedmetadata", () => {
+      P.total = video.duration || P.total;
+    });
+    video.addEventListener("timeupdate", () => {
+      P.t = video.currentTime;
+      updatePlayer();
+    });
     video.addEventListener("ended", () => endPlayback(true));
     video.addEventListener("error", () => toast("This story couldn't load. Check the internet connection and try again."));
-    video.play().catch(() => { P.paused = true; updatePlayer(); });
-    P.tick = setInterval(() => { if (!P.paused) watchedToday++; }, 1000);
+    video.play().catch(() => {
+      P.paused = true;
+      updatePlayer();
+    });
+    P.tick = setInterval(() => {
+      if (!P.paused) watchedToday++;
+    }, 1000);
   }
   el.querySelectorAll("[data-act]").forEach(b => b.onclick = () => playerAction(b.dataset.act));
   el.onpointermove = wake;
-  updatePlayer(); wake(); focusFirst(el);
+  updatePlayer();
+  wake();
+  focusFirst(el);
 }
 const ICON = {
   play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',
@@ -607,7 +1193,7 @@ const ICON = {
   back10: '<svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg>',
   fwd10: '<svg viewBox="0 0 24 24"><path d="M12 5V1l5 5-5 5V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z"/></svg>',
   next: '<svg viewBox="0 0 24 24"><path d="M6 5v14l9-7zM16 5h2v14h-2z"/></svg>',
-  arrow: '<svg viewBox="0 0 24 24"><path d="M15.5 4.5 8 12l7.5 7.5 1.4-1.4L10.8 12l6.1-6.1z"/></svg>',
+  arrow: '<svg viewBox="0 0 24 24"><path d="M15.5 4.5 8 12l7.5 7.5 1.4-1.4L10.8 12l6.1-6.1z"/></svg>'
 };
 let ytApi = null;
 function loadYT() {
@@ -615,16 +1201,26 @@ function loadYT() {
   ytApi = new Promise(res => {
     if (window.YT && YT.Player) return res(true);
     window.onYouTubeIframeAPIReady = () => res(true);
-    const sc = document.createElement("script"); sc.src = "https://www.youtube.com/iframe_api"; sc.onerror = () => { ytApi = null; res(false); };
+    const sc = document.createElement("script");
+    sc.src = "https://www.youtube.com/iframe_api";
+    sc.onerror = () => {
+      ytApi = null;
+      res(false);
+    };
     document.head.appendChild(sc);
   });
   return ytApi;
 }
 const ytList = () => CATALOG.filter(v => v.yt);
-const nextOf = v => { const l = ytList(); return l[(l.indexOf(v) + 1) % l.length]; };
-
+const nextOf = v => {
+  const l = ytList();
+  return l[(l.indexOf(v) + 1) % l.length];
+};
 function playYouTube(v, el) {
-  if (!EMBED_YOUTUBE) { window.open(ytLink(v.yt), "_blank", "noopener"); return; }
+  if (!EMBED_YOUTUBE) {
+    window.open(ytLink(v.yt), "_blank", "noopener");
+    return;
+  }
   const tot = durs[v.slug] || 0;
   const start = progress[v.slug] > 5 && (!tot || progress[v.slug] < tot - 5) ? progress[v.slug] : 0;
   el.className = "player";
@@ -648,66 +1244,160 @@ function playYouTube(v, el) {
     <div class="p-cover"><img src="${ytThumb(v.yt, true)}" alt="" onerror="this.onerror=null;this.src='${ytThumb(v.yt)}'">
       <div class="p-cover-txt">${animLogo()}<span class="eyebrow">LittleRoots presents</span><h3>${esc(v.title)}</h3><span class="hint p-msg"></span></div></div>`;
   el.hidden = false;
-  const me = P = { slug: v.slug, yt: true, t: start, total: tot, paused: false, started: false, ytp: null, idle: null, end: null };
+  const me = P = {
+    slug: v.slug,
+    yt: true,
+    t: start,
+    total: tot,
+    paused: false,
+    started: false,
+    ytp: null,
+    idle: null,
+    end: null
+  };
   P.tick = setInterval(() => {
     if (!P || !P.ytp || !P.ytp.getCurrentTime) return;
-    P.t = P.ytp.getCurrentTime() || P.t; P.total = P.ytp.getDuration() || P.total;
+    P.t = P.ytp.getCurrentTime() || P.t;
+    P.total = P.ytp.getDuration() || P.total;
     updateYT();
   }, 250);
-  P.watch = setInterval(() => { if (P && !P.paused && P.started) { watchedToday++; if (settings.limit && watchedToday >= settings.limit * 60) { endPlayback(false); showBreak(); } } }, 1000);
-  el.querySelectorAll("[data-act]").forEach(b => b.onclick = e => { e.stopPropagation(); playerAction(b.dataset.act); });
-  el.querySelector(".p-shield").onclick = () => { if (el.classList.contains("idle")) wake(); else playerAction("toggle"); };
-  el.querySelector(".p-track").onclick = e => { const r = e.currentTarget.getBoundingClientRect(); if (P && P.total && P.ytp) { P.ytp.seekTo((e.clientX - r.left) / r.width * P.total, true); wake(); } };
+  P.watch = setInterval(() => {
+    if (P && !P.paused && P.started) {
+      watchedToday++;
+      if (settings.limit && watchedToday >= settings.limit * 60) {
+        endPlayback(false);
+        showBreak();
+      }
+    }
+  }, 1000);
+  el.querySelectorAll("[data-act]").forEach(b => b.onclick = e => {
+    e.stopPropagation();
+    playerAction(b.dataset.act);
+  });
+  el.querySelector(".p-shield").onclick = () => {
+    if (el.classList.contains("idle")) wake();else playerAction("toggle");
+  };
+  el.querySelector(".p-track").onclick = e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    if (P && P.total && P.ytp) {
+      P.ytp.seekTo((e.clientX - r.left) / r.width * P.total, true);
+      wake();
+    }
+  };
   el.onpointermove = wake;
-  focusFirst(el); setFocus(el.querySelector('[data-act="toggle"]'));
+  focusFirst(el);
+  setFocus(el.querySelector('[data-act="toggle"]'));
   loadYT().then(ok => {
     if (P !== me) return;
     if (!ok || !window.YT) return coverMsg("This story couldn't load. Check the internet connection and try again.");
     P.ytp = new YT.Player("ytp", {
-      videoId: v.yt, host: "https://www.youtube-nocookie.com", width: "100%", height: "100%",
-      playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3, modestbranding: 1, playsinline: 1, cc_load_policy: 0, start: Math.floor(start), origin: location.origin },
-      events: {
-        onReady: e => { if (P !== me) return; e.target.playVideo(); setTimeout(() => { if (P === me && !P.started) coverMsg("Press OK to play"); }, 3500); },
-        onStateChange: e => P === me && ytState(e.data),
-        onError: () => P === me && coverMsg("This story isn't available right now. Try another one."),
+      videoId: v.yt,
+      host: "https://www.youtube-nocookie.com",
+      width: "100%",
+      height: "100%",
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        rel: 0,
+        iv_load_policy: 3,
+        modestbranding: 1,
+        playsinline: 1,
+        cc_load_policy: 0,
+        start: Math.floor(start),
+        origin: location.origin
       },
+      events: {
+        onReady: e => {
+          if (P !== me) return;
+          e.target.playVideo();
+          setTimeout(() => {
+            if (P === me && !P.started) coverMsg("Press OK to play");
+          }, 3500);
+        },
+        onStateChange: e => P === me && ytState(e.data),
+        onError: () => P === me && coverMsg("This story isn't available right now. Try another one.")
+      }
     });
   });
 }
-function coverMsg(t) { const c = document.querySelector(".p-cover"); if (!c) return; c.classList.remove("gone"); c.querySelector(".p-msg").textContent = t; const sp = c.querySelector(".p-cover-txt .p-spin"); if (sp) sp.hidden = /OK/.test(t) ? true : sp.hidden; }
+function coverMsg(t) {
+  const c = document.querySelector(".p-cover");
+  if (!c) return;
+  c.classList.remove("gone");
+  c.querySelector(".p-msg").textContent = t;
+  const sp = c.querySelector(".p-cover-txt .p-spin");
+  if (sp) sp.hidden = /OK/.test(t) ? true : sp.hidden;
+}
 function ytState(s) {
   const el = $("#player");
   el.classList.toggle("buffering", s === 3);
   if (s === 1) {
-    P.paused = false; el.classList.remove("paused");
-    if (!P.started) { P.started = true; setTimeout(() => { const c = el.querySelector(".p-cover"); if (c) c.classList.add("gone"); }, 2200); }
+    P.paused = false;
+    el.classList.remove("paused");
+    if (!P.started) {
+      P.started = true;
+      setTimeout(() => {
+        const c = el.querySelector(".p-cover");
+        if (c) c.classList.add("gone");
+      }, 2200);
+    }
     wake();
   }
-  if (s === 2) { P.paused = true; el.classList.add("paused"); wake(); }
+  if (s === 2) {
+    P.paused = true;
+    el.classList.add("paused");
+    wake();
+  }
   if (s === 0) showEnd();
   updateYT();
 }
 function updateYT() {
-  const el = $("#player"); if (!P || !P.yt || el.hidden) return;
+  const el = $("#player");
+  if (!P || !P.yt || el.hidden) return;
   el.querySelector(".p-track i").style.width = (P.total ? P.t / P.total * 100 : 0) + "%";
   el.querySelector(".time").textContent = `${fmt(P.t)} / ${P.total ? fmt(P.total) : "–:––"}`;
-  const tg = el.querySelector('[data-act="toggle"]'); tg.innerHTML = P.paused ? ICON.play : ICON.pause; tg.setAttribute("aria-label", P.paused ? "Play" : "Pause");
+  const tg = el.querySelector('[data-act="toggle"]');
+  tg.innerHTML = P.paused ? ICON.play : ICON.pause;
+  tg.setAttribute("aria-label", P.paused ? "Play" : "Pause");
 }
 function showEnd() {
-  const el = $("#player"), v = bySlug(P.slug), n = nextOf(v);
-  P.finished = true; let left = 8;
-  const end = document.createElement("div"); end.className = "p-end";
+  const el = $("#player"),
+    v = bySlug(P.slug),
+    n = nextOf(v);
+  P.finished = true;
+  let left = 8;
+  const end = document.createElement("div");
+  end.className = "p-end";
   end.innerHTML = `<span class="eyebrow">Well done! Story finished</span>
     <div class="next"><img src="${ytThumb(n.yt)}" alt="">
       <div style="display:grid;gap:.6rem"><span class="hint">Up next</span><h3>${esc(n.title)}</h3><span class="count">Starting in <b>${left}</b> s</span>
       <div class="actions"><button class="btn primary fx" data-fg="end" data-e="next">${ICON.play}Play now</button><button class="btn fx" data-fg="end" data-e="again">Watch again</button><button class="btn fx" data-fg="end" data-e="close">Back to LittleRoots</button></div></div></div>
     <div class="talk" style="max-width:40rem"><h3>Talk about it together</h3><ol>${v.talk.map(q => `<li>${esc(q)}</li>`).join("")}</ol></div>`;
   el.appendChild(end);
-  const go = what => { clearInterval(P && P.end); if (what === "close") return endPlayback(true); const slug = what === "again" ? v.slug : n.slug; endPlayback(true, true); if (what === "again") progress[slug] = 0; play(slug); };
+  const go = what => {
+    clearInterval(P && P.end);
+    if (what === "close") return endPlayback(true);
+    const slug = what === "again" ? v.slug : n.slug;
+    endPlayback(true, true);
+    if (what === "again") progress[slug] = 0;
+    play(slug);
+  };
   end.querySelectorAll("[data-e]").forEach(b => b.onclick = () => go(b.dataset.e));
-  P.end = setInterval(() => { left--; const c = end.querySelector(".count b"); if (c) c.textContent = left; if (left <= 0) go("next"); }, 1000);
-  end.onpointermove = () => { clearInterval(P && P.end); const c = end.querySelector(".count"); if (c) c.textContent = "Paused"; };
-  focusFirst(end); setFocus(end.querySelector('[data-e="next"]'));
+  P.end = setInterval(() => {
+    left--;
+    const c = end.querySelector(".count b");
+    if (c) c.textContent = left;
+    if (left <= 0) go("next");
+  }, 1000);
+  end.onpointermove = () => {
+    clearInterval(P && P.end);
+    const c = end.querySelector(".count");
+    if (c) c.textContent = "Paused";
+  };
+  focusFirst(end);
+  setFocus(end.querySelector('[data-e="next"]'));
 }
 function playerAction(a) {
   if (!P) return;
@@ -715,39 +1405,85 @@ function playerAction(a) {
   if (P.yt) {
     if (!P.ytp || !P.ytp.getPlayerState) return;
     if (a === "toggle") P.paused ? P.ytp.playVideo() : P.ytp.pauseVideo();
-    if (a === "back10" || a === "fwd10") { P.ytp.seekTo(Math.max(0, P.t + (a === "fwd10" ? 10 : -10)), true); }
-    if (a === "next") { const n = nextOf(bySlug(P.slug)); endPlayback(false, true); return play(n.slug); }
+    if (a === "back10" || a === "fwd10") {
+      P.ytp.seekTo(Math.max(0, P.t + (a === "fwd10" ? 10 : -10)), true);
+    }
+    if (a === "next") {
+      const n = nextOf(bySlug(P.slug));
+      endPlayback(false, true);
+      return play(n.slug);
+    }
     return wake();
   }
-  if (a === "toggle") { P.paused = !P.paused; if (P.video) P.paused ? P.video.pause() : P.video.play(); }
-  if (a === "back10" || a === "fwd10") { P.t = Math.max(0, Math.min(P.total - 1, P.t + (a === "fwd10" ? 10 : -10))); if (P.video) P.video.currentTime = P.t; }
-  updatePlayer(); wake();
+  if (a === "toggle") {
+    P.paused = !P.paused;
+    if (P.video) P.paused ? P.video.pause() : P.video.play();
+  }
+  if (a === "back10" || a === "fwd10") {
+    P.t = Math.max(0, Math.min(P.total - 1, P.t + (a === "fwd10" ? 10 : -10)));
+    if (P.video) P.video.currentTime = P.t;
+  }
+  updatePlayer();
+  wake();
 }
 function updatePlayer() {
-  const el = $("#player"); if (!P || P.yt || el.hidden) return;
-  el.querySelector(".p-track i").style.width = (P.t / P.total * 100) + "%";
+  const el = $("#player");
+  if (!P || P.yt || el.hidden) return;
+  el.querySelector(".p-track i").style.width = P.t / P.total * 100 + "%";
   el.querySelector(".time").textContent = `${fmt(P.t)} / ${fmt(P.total)}`;
   el.querySelector('[data-act="toggle"]').textContent = P.paused ? "Play" : "Pause";
-  if (settings.limit && watchedToday >= settings.limit * 60) { endPlayback(false); showBreak(); }
+  if (settings.limit && watchedToday >= settings.limit * 60) {
+    endPlayback(false);
+    showBreak();
+  }
 }
-function wake() { const el = $("#player"); el.classList.remove("idle"); if (!P) return; clearTimeout(P.idle); P.idle = setTimeout(() => P && !P.paused && el.classList.add("idle"), 3500); }
+function wake() {
+  const el = $("#player");
+  el.classList.remove("idle");
+  if (!P) return;
+  clearTimeout(P.idle);
+  P.idle = setTimeout(() => P && !P.paused && el.classList.add("idle"), 3500);
+}
 function endPlayback(finished, chaining) {
   if (!P) return;
-  clearInterval(P.tick); clearInterval(P.watch); clearInterval(P.end); clearTimeout(P.idle); if (P.hls) P.hls.destroy(); if (P.video) P.video.pause();
-  if (P.ytp && P.ytp.destroy) { try { P.ytp.destroy(); } catch {} }
-  if (P.yt && P.total) { durs[P.slug] = Math.round(P.total); store.set("dur", durs); }
-  delete progress[P.slug]; if (!(finished || P.finished) && P.t > 5) progress[P.slug] = P.t; // re-insert so the latest is last
-  if (chaining) { store.set("progress", progress); P = null; return; }
-  store.set("progress", progress); store.set("watched-" + new Date().toDateString(), watchedToday);
-  const slug = P.slug; P = null;
-  $("#player").hidden = true; $("#player").innerHTML = "";
-  renderRows(); refocus(slug);
+  clearInterval(P.tick);
+  clearInterval(P.watch);
+  clearInterval(P.end);
+  clearTimeout(P.idle);
+  if (P.hls) P.hls.destroy();
+  if (P.video) P.video.pause();
+  if (P.ytp && P.ytp.destroy) {
+    try {
+      P.ytp.destroy();
+    } catch (_unused3) {}
+  }
+  if (P.yt && P.total) {
+    durs[P.slug] = Math.round(P.total);
+    store.set("dur", durs);
+  }
+  delete progress[P.slug];
+  if (!(finished || P.finished) && P.t > 5) progress[P.slug] = P.t; // re-insert so the latest is last
+  if (chaining) {
+    store.set("progress", progress);
+    P = null;
+    return;
+  }
+  store.set("progress", progress);
+  store.set("watched-" + new Date().toDateString(), watchedToday);
+  const slug = P.slug;
+  P = null;
+  $("#player").hidden = true;
+  $("#player").innerHTML = "";
+  renderRows();
+  refocus(slug);
   if (finished && !P) toast("Well done! Story finished.");
 }
 
 /* ---------- grown-ups: gate, settings, screen-time break ---------- */
 function openGate() {
-  const a = 3 + Math.floor(Math.random() * 5), b = 3 + Math.floor(Math.random() * 6), ans = a * b;
+  const a = 3 + Math.floor(Math.random() * 5),
+    b = 3 + Math.floor(Math.random() * 6),
+    ans = a * b;
   const opts = [ans, ans + a, ans - b].sort(() => Math.random() - .5);
   const g = $("#gate");
   g.innerHTML = `<div class="gate" role="dialog" aria-modal="true" aria-label="Grown-ups only">
@@ -759,7 +1495,7 @@ function openGate() {
   g.hidden = false;
   g.querySelectorAll("[data-v]").forEach(btn => btn.onclick = () => {
     if (btn.dataset.v === "close") return closeLayer();
-    if (+btn.dataset.v === ans) openParents(); else g.querySelector(".msg").textContent = "Not quite. Ask a grown-up for help.";
+    if (+btn.dataset.v === ans) openParents();else g.querySelector(".msg").textContent = "Not quite. Ask a grown-up for help.";
   });
   focusFirst(g);
 }
@@ -774,7 +1510,8 @@ function openParents() {
     <div class="set"><h3>Privacy</h3><span class="hint">LittleRoots shows no ads and collects no personal data from children. Watch progress stays on this TV.</span></div>
     <div class="choices"><button class="btn primary fx" data-fg="g3" data-v="done">Done</button></div></div>`;
   g.querySelectorAll("[data-limit]").forEach(b => b.onclick = () => {
-    settings.limit = +b.dataset.limit; store.set("settings", settings);
+    settings.limit = +b.dataset.limit;
+    store.set("settings", settings);
     g.querySelectorAll("[data-limit]").forEach(x => x.setAttribute("aria-pressed", x === b));
     toast(settings.limit ? `Daily limit set to ${settings.limit} minutes` : "Daily limit turned off");
   });
@@ -802,71 +1539,152 @@ function topLayer() {
   return document.body;
 }
 function groups(layer) {
-  const order = [], map = {};
-  const endScreen = layer.querySelector && layer.querySelector(".p-end"); if (endScreen) layer = endScreen;
+  const order = [],
+    map = {};
+  const endScreen = layer.querySelector && layer.querySelector(".p-end");
+  if (endScreen) layer = endScreen;
   layer.querySelectorAll("[data-fg]").forEach(el => {
-    if (el.closest("[hidden]") || (layer === document.body && el.closest(".layer, .player"))) return;
-    const k = el.dataset.fg; if (!map[k]) { map[k] = []; order.push(k); } map[k].push(el);
+    if (el.closest("[hidden]") || layer === document.body && el.closest(".layer, .player")) return;
+    const k = el.dataset.fg;
+    if (!map[k]) {
+      map[k] = [];
+      order.push(k);
+    }
+    map[k].push(el);
   });
   return order.map(k => map[k]);
 }
 function setFocus(el) {
   if (!el) return;
   document.querySelectorAll(".is-focus").forEach(e => e.classList.remove("is-focus"));
-  el.classList.add("is-focus"); el.focus({ preventScroll: true });
-  el.scrollIntoView({ block: el.closest(".hero") ? "end" : "nearest", inline: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-  if (el.closest(".nav") && el.dataset.target === "hero") window.scrollTo({ top: 0, behavior: "smooth" });
+  el.classList.add("is-focus");
+  el.focus({
+    preventScroll: true
+  });
+  el.scrollIntoView({
+    block: el.closest(".hero") ? "end" : "nearest",
+    inline: "nearest",
+    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+  });
+  if (el.closest(".nav") && el.dataset.target === "hero") window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
-function focusFirst(layer) { const g = groups(layer); setFocus(g[0] && g[0][0]); }
+function focusFirst(layer) {
+  const g = groups(layer);
+  setFocus(g[0] && g[0][0]);
+}
 function refocus(slug) {
-  const el = (slug && document.querySelector(`#rows [data-slug="${slug}"]`)) || lastBrowseFocus;
-  if (el && document.contains(el)) setFocus(el); else setFocus($("#heroPlay"));
+  const el = slug && document.querySelector(`#rows [data-slug="${slug}"]`) || lastBrowseFocus;
+  if (el && document.contains(el)) setFocus(el);else setFocus($("#heroPlay"));
 }
 function move(dir) {
-  const layer = topLayer(), gs = groups(layer);
+  const layer = topLayer(),
+    gs = groups(layer);
   const cur = document.activeElement;
   let gi = gs.findIndex(g => g.includes(cur));
   if (gi < 0) return focusFirst(layer);
   let i = gs[gi].indexOf(cur);
-  if (dir === "left" || dir === "right") { i += dir === "right" ? 1 : -1; if (i >= 0 && i < gs[gi].length) setFocus(gs[gi][i]); return; }
-  gi += dir === "down" ? 1 : -1; if (gi < 0 || gi >= gs.length) return;
+  if (dir === "left" || dir === "right") {
+    i += dir === "right" ? 1 : -1;
+    if (i >= 0 && i < gs[gi].length) setFocus(gs[gi][i]);
+    return;
+  }
+  gi += dir === "down" ? 1 : -1;
+  if (gi < 0 || gi >= gs.length) return;
   const cx = cur.getBoundingClientRect().left + cur.getBoundingClientRect().width / 2;
-  const best = gs[gi].reduce((b, el) => { const r = el.getBoundingClientRect(); const d = Math.abs(r.left + r.width / 2 - cx); return d < b.d ? { el, d } : b; }, { el: gs[gi][0], d: Infinity });
+  const best = gs[gi].reduce((b, el) => {
+    const r = el.getBoundingClientRect();
+    const d = Math.abs(r.left + r.width / 2 - cx);
+    return d < b.d ? {
+      el,
+      d
+    } : b;
+  }, {
+    el: gs[gi][0],
+    d: Infinity
+  });
   setFocus(best.el);
 }
 function closeLayer() {
-  if (!$("#gate").hidden) { $("#gate").hidden = true; $("#gate").innerHTML = ""; return refocus(); }
-  if (!$("#detail").hidden) { $("#detail").hidden = true; $("#detail").innerHTML = ""; return refocus(); }
+  if (!$("#gate").hidden) {
+    $("#gate").hidden = true;
+    $("#gate").innerHTML = "";
+    return refocus();
+  }
+  if (!$("#detail").hidden) {
+    $("#detail").hidden = true;
+    $("#detail").innerHTML = "";
+    return refocus();
+  }
 }
 const BACK = [8, 27, 461, 10009]; // Backspace (VIDAA), Escape, LG webOS Back, Tizen Back
 document.addEventListener("keydown", e => {
-  const k = { 37: "left", 38: "up", 39: "right", 40: "down" }[e.keyCode];
+  const k = {
+    37: "left",
+    38: "up",
+    39: "right",
+    40: "down"
+  }[e.keyCode];
   if (!$("#player").hidden) {
     if (!document.querySelector(".p-end")) wake();
-    if (BACK.includes(e.keyCode)) { e.preventDefault(); return endPlayback(!!(P && P.finished)); }
-    if (P && (e.keyCode === 415 || e.keyCode === 19 || e.keyCode === 32)) { e.preventDefault(); return playerAction("toggle"); } // remote Play/Pause keys
+    if (BACK.includes(e.keyCode)) {
+      e.preventDefault();
+      return endPlayback(!!(P && P.finished));
+    }
+    if (P && (e.keyCode === 415 || e.keyCode === 19 || e.keyCode === 32)) {
+      e.preventDefault();
+      return playerAction("toggle");
+    } // remote Play/Pause keys
   }
-  if (k) { e.preventDefault(); return move(k); }
+  if (k) {
+    e.preventDefault();
+    return move(k);
+  }
   if (BACK.includes(e.keyCode)) {
     e.preventDefault();
     if (topLayer() !== document.body) return closeLayer();
     return setFocus($("#nav button"));
   }
 });
-document.addEventListener("focusin", e => { if (topLayer() === document.body && e.target.closest("#browse, .top")) lastBrowseFocus = e.target; });
+document.addEventListener("focusin", e => {
+  if (topLayer() === document.body && e.target.closest("#browse, .top")) lastBrowseFocus = e.target;
+});
 document.addEventListener("click", e => {
-  const card = e.target.closest("#rows .card"); if (card) return openDetail(card.dataset.slug);
-  const t = e.target.closest("[data-target]"); if (!t) return;
+  const card = e.target.closest("#rows .card");
+  if (card) return openDetail(card.dataset.slug);
+  const t = e.target.closest("[data-target]");
+  if (!t) return;
   if (t.dataset.target === "parents") return openGate();
   document.querySelectorAll("#nav button").forEach(b => b.setAttribute("aria-current", b.dataset.target === t.dataset.target));
-  if (t.dataset.target === "hero") { window.scrollTo({ top: 0, behavior: "smooth" }); return setFocus($("#heroPlay")); }
-  const first = document.querySelector(`#row-${t.dataset.target} .card`); if (first) setFocus(first);
+  if (t.dataset.target === "hero") {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+    return setFocus($("#heroPlay"));
+  }
+  const first = document.querySelector(`#row-${t.dataset.target} .card`);
+  if (first) setFocus(first);
 });
 
 /* ---------- start ---------- */
 $("#splash").innerHTML = animLogo();
-renderStatic(); renderRows();
-setTimeout(() => { $("#splash").classList.add("done"); setTimeout(() => $("#splash").remove(), 700); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 2300);
+renderStatic();
+renderRows();
+setTimeout(() => {
+  $("#splash").classList.add("done");
+  setTimeout(() => $("#splash").remove(), 700);
+}, matchMedia("(prefers-reduced-motion: reduce)").matches ? 400 : 2300);
 setFocus($("#heroPlay"));
-let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { paintAll(document); paint($("#heroArt"), CATALOG[0].scene, "hero", innerWidth > 760 ? .66 : .5); }, 200); });
-</script>
+let rz;
+addEventListener("resize", () => {
+  clearTimeout(rz);
+  rz = setTimeout(() => {
+    paintAll(document);
+    paint($("#heroArt"), CATALOG[0].scene, "hero", innerWidth > 760 ? .66 : .5);
+  }, 200);
+});</script>
+</body>
+</html>

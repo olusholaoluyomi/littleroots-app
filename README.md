@@ -9,3 +9,12 @@ Prototype of the LittleRoots streaming app for smart TVs (LG webOS, Hisense VIDA
 
 ## Adding videos
 Open `index.html`, find `CATALOG`, and add an entry with the YouTube video ID (`yt`), title, world, age range and description.
+
+## TV-safe build
+Edit `src/littleroots-tv.html`, then rebuild `index.html` so it also runs on older smart-TV browsers (LG webOS 5+):
+
+```bash
+npm i @babel/core@7.24.7 @babel/preset-env@7.24.7
+node tools/build-tv.mjs src/littleroots-tv.html index.html ./node_modules
+```
+The build adds the full page header, converts newer JavaScript to an older form, and adds layout fallbacks for older TV browsers.
